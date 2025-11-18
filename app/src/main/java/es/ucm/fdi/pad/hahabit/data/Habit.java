@@ -18,7 +18,7 @@ public class Habit {
     private String daysFrequency;
     private Integer frequency;
 
-    // --- Constructor ---
+    // Constructor
     public Habit(String title, String area, String type, Double progress, boolean done,
                  int typeFrequency, String daysFrequency, Integer frequency) {
         this.title = title;
@@ -31,7 +31,7 @@ public class Habit {
         this.frequency = frequency;
     }
 
-    // --- Getters y Setters (Corregidos) ---
+    // Getters y Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
