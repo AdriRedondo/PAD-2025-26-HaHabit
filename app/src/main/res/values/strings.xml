@@ -5,4 +5,5 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_add">Add</string>
     <string name="title_tracker">Tracker</string>
+    <string name="title">Title</string>
 </resources>
