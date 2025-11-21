@@ -13,13 +13,13 @@
 
     <fragment
         android:id="@+id/navigation_add"
-        android:name="es.ucm.fdi.pad.hahabit.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:name="es.ucm.fdi.pad.hahabit.ui.add.AddFragment"
+        android:label="@string/title_add"
+        tools:layout="@layout/fragment_add" />
 
     <fragment
         android:id="@+id/navigation_tracker"
-        android:name="es.ucm.fdi.pad.hahabit.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:name="es.ucm.fdi.pad.hahabit.ui.tracker.TrackerFragment"
+        android:label="@string/title_tracker"
+        tools:layout="@layout/fragment_tracker" />
 </navigation>
