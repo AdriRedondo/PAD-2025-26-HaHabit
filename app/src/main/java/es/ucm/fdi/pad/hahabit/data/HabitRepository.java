@@ -58,4 +58,18 @@ public class HabitRepository {
     public LiveData<List<Habit>> getAllHabits() {
         return allHabits;
     }
+
+    public LiveData<Habit> getHabitById(int id) {
+        return habitDao.getHabitById(id);
+    }
+
+    public void update(Habit habit) {
+        executorService.execute(() -> habitDao.update(habit));
+    }
+
+    public void delete(Habit habit) {
+        executorService.execute(() -> habitDao.delete(habit));
+    }
+
+
 }
