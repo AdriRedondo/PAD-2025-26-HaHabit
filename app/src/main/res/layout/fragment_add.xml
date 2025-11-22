@@ -1,313 +1,389 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.add.AddFragment">
+    android:background="#FAFAFA"
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/timeTextView"
-        android:layout_width="161dp"
-        android:layout_height="29dp"
-        android:text="@string/time"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.104"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.796" />
-
-    <TextView
-        android:id="@+id/frecuencyTextView"
-        android:layout_width="161dp"
-        android:layout_height="29dp"
-        android:text="@string/frequency"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.192"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.668" />
-
-    <Button
-        android:id="@+id/timerButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:icon="@drawable/cronografo"
-        app:iconGravity="start"
-        app:iconPadding="8dp"
-        app:iconSize="25dp"
-        app:iconTint="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.518"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.571" />
-
-    <TextView
-        android:id="@+id/listTextView"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:text="@string/list"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.262"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listButton"
-        app:layout_constraintVertical_bias="0.011" />
+        android:padding="20dp"
+        tools:context=".ui.add.AddFragment">
 
-    <Button
-        android:id="@+id/listButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="32dp"
-        app:icon="@drawable/hacer"
-        app:iconGravity="start"
-        app:iconPadding="8dp"
-        app:iconSize="25dp"
-        app:iconTint="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/timerButton"
-        app:layout_constraintHorizontal_bias="0.971"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.571" />
-
-    <TextView
-        android:id="@+id/standardTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:text="@string/standard"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.067"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/standarButton"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/standarButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="28dp"
-        app:icon="@drawable/comenta_alt_check"
-        app:iconGravity="start"
-        app:iconPadding="8dp"
-        app:iconSize="25dp"
-        app:iconTint="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/listButton"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/typeTextView"
-        app:layout_constraintVertical_bias="0.06" />
-
-    <TextView
-        android:id="@+id/timerTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="@string/timer"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timerButton"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/typeTextView"
-        android:layout_width="61dp"
-        android:layout_height="32dp"
-        android:text="@string/tipe"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.077"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
-
-    <TextView
-        android:id="@+id/areaTextView"
-        android:layout_width="61dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/area"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/CookingButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.102"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleText"
-        app:layout_constraintVertical_bias="1.0" />
-
-
-    <TextView
-        android:id="@+id/titleTextView"
-        android:layout_width="61dp"
-        android:layout_height="32dp"
-        android:text="@string/title"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.102"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.087" />
-
-    <EditText
-        android:id="@+id/titleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:autofillHints=""
-        android:ems="10"
-        android:inputType="text"
-        android:hint="@string/add_a_title"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.179"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.135" />
-
-    <Button
-        android:id="@+id/othersButton"
-        android:layout_width="157dp"
-        android:layout_height="73dp"
-        android:layout_marginBottom="20dp"
-        android:text="@string/others"
-        android:textColor="#050505"
-        app:icon="@drawable/calendario_reloj"
-        app:iconGravity="start"
-        app:iconPadding="8dp"
-        app:iconSize="35dp"
-        app:iconTint="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.285"
-        app:layout_constraintStart_toEndOf="@+id/studyButton"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.393" />
-
-    <Button
-        android:id="@+id/sportsButton"
-        android:layout_width="157dp"
-        android:layout_height="73dp"
-        android:layout_marginBottom="20dp"
-        android:text="@string/sports"
-        android:textColor="#050505"
-        app:icon="@drawable/correr"
-        app:iconGravity="start"
-        app:iconPadding="8dp"
-        app:iconSize="35dp"
-        app:iconTint="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@+id/othersButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.252"
-        app:layout_constraintStart_toEndOf="@+id/CookingButton"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/studyButton"
-        android:layout_width="157dp"
-        android:layout_height="73dp"
-        android:layout_marginBottom="20dp"
-        android:text="@string/study"
-        android:textColor="#050505"
-        app:icon="@drawable/marcadores_de_diario"
-        app:iconGravity="start"
-        app:iconPadding="8dp"
-        app:iconSize="35dp"
-        app:iconTint="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.141"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.393" />
-
-    <Button
-        android:id="@+id/CookingButton"
-        android:layout_width="157dp"
-        android:layout_height="73dp"
-        android:layout_marginBottom="20dp"
-        android:text="@string/cooking"
-        android:textColor="#050505"
-        app:icon="@drawable/restaurante__1_"
-        app:iconGravity="start"
-        app:iconPadding="8dp"
-        app:iconSize="35dp"
-        app:iconTint="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@+id/studyButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.141"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:rippleColor="#070707" />
-
-    <RadioGroup
-        android:id="@+id/frequencyGroup"
-        android:layout_width="265dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="11dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/timeTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.184"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frecuencyTextView"
-        app:layout_constraintVertical_bias="0.0">
-
-        <RadioButton
-            android:id="@+id/weeklyButton"
+        <!-- Título de la sección -->
+        <TextView
+            android:id="@+id/titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/weekly" />
+            android:text="@string/title"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:fontFamily="sans-serif-medium"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp" />
 
-        <RadioButton
-            android:id="@+id/daysButton"
+        <!-- Campo de título mejorado -->
+        <EditText
+            android:id="@+id/titleText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:autofillHints=""
+            android:background="@drawable/edittext_background"
+            android:ems="10"
+            android:hint="@string/add_a_title"
+            android:inputType="text"
+            android:textColorHint="#999999"
+            android:textColor="#333333"
+            android:fontFamily="sans-serif"
+            android:elevation="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+
+        <!-- Área de selección -->
+        <TextView
+            android:id="@+id/areaTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/every_other_day" />
-    </RadioGroup>
+            android:layout_marginTop="24dp"
+            android:text="@string/area"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:fontFamily="sans-serif-medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleText" />
 
-    <EditText
-        android:id="@+id/timeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:inputType="time"
-        android:hint="@string/add_a_time"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.134"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeTextView"
-        app:layout_constraintVertical_bias="0.0" />
+        <!-- Botones de área en grid -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/CookingButton"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="#78BC61"
+            android:text="@string/cooking"
+            android:textColor="#FFFFFF"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="14sp"
+            app:cornerRadius="20dp"
+            app:elevation="3dp"
+            app:icon="@drawable/restaurante__1_"
+            app:iconGravity="start"
+            app:iconPadding="8dp"
+            app:iconSize="32dp"
+            app:iconTint="#FFFFFF"
+            app:layout_constraintEnd_toStartOf="@+id/sportsButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/areaTextView" />
 
-    <Button
-        android:id="@+id/textAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:text="@string/add_habbit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.425"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeText"
-        app:layout_constraintVertical_bias="0.0" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sportsButton"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="#FF686B"
+            android:text="@string/sports"
+            android:textColor="#FFFFFF"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="14sp"
+            app:cornerRadius="20dp"
+            app:elevation="3dp"
+            app:icon="@drawable/correr"
+            app:iconGravity="start"
+            app:iconPadding="8dp"
+            app:iconSize="32dp"
+            app:iconTint="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/CookingButton"
+            app:layout_constraintTop_toBottomOf="@+id/areaTextView" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/studyButton"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="#00A6FB"
+            android:text="@string/study"
+            android:textColor="#FFFFFF"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="14sp"
+            app:cornerRadius="20dp"
+            app:elevation="3dp"
+            app:icon="@drawable/marcadores_de_diario"
+            app:iconGravity="start"
+            app:iconPadding="8dp"
+            app:iconSize="32dp"
+            app:iconTint="#FFFFFF"
+            app:layout_constraintEnd_toStartOf="@+id/othersButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/CookingButton" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/othersButton"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="#F8BD4F"
+            android:text="@string/others"
+            android:textColor="#FFFFFF"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="14sp"
+            app:cornerRadius="20dp"
+            app:elevation="3dp"
+            app:icon="@drawable/calendario_reloj"
+            app:iconGravity="start"
+            app:iconPadding="8dp"
+            app:iconSize="32dp"
+            app:iconTint="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/studyButton"
+            app:layout_constraintTop_toBottomOf="@+id/CookingButton" />
+
+        <!-- Tipo de hábito -->
+        <TextView
+            android:id="@+id/typeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/tipe"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:fontFamily="sans-serif-medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/studyButton" />
+
+        <!-- Botones de tipo en línea -->
+        <LinearLayout
+            android:id="@+id/typeLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/typeTextView">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/standarButton"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:padding="0dp"
+                    app:backgroundTint="#FFFFFF"
+                    app:cornerRadius="30dp"
+                    app:elevation="2dp"
+                    app:icon="@drawable/comenta_alt_check"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="30dp"
+                    app:iconTint="#333333"
+                    app:strokeColor="#E0E0E0"
+                    app:strokeWidth="2dp" />
+
+                <TextView
+                    android:id="@+id/standardTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/standard"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    android:fontFamily="sans-serif" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/listButton"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:padding="0dp"
+                    app:backgroundTint="#FFFFFF"
+                    app:cornerRadius="30dp"
+                    app:elevation="2dp"
+                    app:icon="@drawable/hacer"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="30dp"
+                    app:iconTint="#333333"
+                    app:strokeColor="#E0E0E0"
+                    app:strokeWidth="2dp" />
+
+                <TextView
+                    android:id="@+id/listTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/list"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    android:fontFamily="sans-serif" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/timerButton"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:padding="0dp"
+                    app:backgroundTint="#FFFFFF"
+                    app:cornerRadius="30dp"
+                    app:elevation="2dp"
+                    app:icon="@drawable/cronografo"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="30dp"
+                    app:iconTint="#333333"
+                    app:strokeColor="#E0E0E0"
+                    app:strokeWidth="2dp" />
+
+                <TextView
+                    android:id="@+id/timerTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/timer"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    android:fontFamily="sans-serif" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Frecuencia -->
+        <TextView
+            android:id="@+id/frecuencyTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/frequency"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:fontFamily="sans-serif-medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/typeLayout" />
+
+        <RadioGroup
+            android:id="@+id/frequencyGroup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frecuencyTextView">
+
+            <RadioButton
+                android:id="@+id/weeklyButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/weekly"
+                android:fontFamily="sans-serif"
+                android:textColor="#333333"
+                android:buttonTint="#00A6FB" />
+
+            <RadioButton
+                android:id="@+id/daysButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/every_other_day"
+                android:fontFamily="sans-serif"
+                android:textColor="#333333"
+                android:buttonTint="#00A6FB" />
+        </RadioGroup>
+
+        <!-- Hora -->
+
+        <!-- Botón de añadir -->
+
+        <TextView
+            android:id="@+id/timeTextView"
+            android:layout_width="46dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="56dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/time"
+            android:textColor="#333333"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frequencyGroup" />
+
+        <EditText
+            android:id="@+id/timeText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:autofillHints=""
+            android:background="@drawable/edittext_background"
+            android:elevation="2dp"
+            android:ems="10"
+            android:fontFamily="sans-serif"
+            android:hint="@string/add_a_time"
+            android:inputType="time"
+            android:textColor="#333333"
+            android:textColorHint="#999999"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timeTextView" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/textAdd"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/add_habbit"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            app:backgroundTint="#00A6FB"
+            app:cornerRadius="28dp"
+            app:elevation="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timeText"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
