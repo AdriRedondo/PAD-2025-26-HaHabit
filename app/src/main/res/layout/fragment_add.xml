@@ -12,7 +12,6 @@
         android:padding="20dp"
         tools:context=".ui.add.AddFragment">
 
-        <!-- Título de la sección -->
         <TextView
             android:id="@+id/titleTextView"
             android:layout_width="wrap_content"
@@ -26,7 +25,6 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="8dp" />
 
-        <!-- Campo de título mejorado -->
         <EditText
             android:id="@+id/titleText"
             android:layout_width="0dp"
@@ -45,7 +43,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
-        <!-- Área de selección -->
         <TextView
             android:id="@+id/areaTextView"
             android:layout_width="wrap_content"
@@ -59,7 +56,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleText" />
 
-        <!-- Botones de área en grid -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/CookingButton"
             android:layout_width="0dp"
@@ -148,7 +144,6 @@
             app:layout_constraintStart_toEndOf="@+id/studyButton"
             app:layout_constraintTop_toBottomOf="@+id/CookingButton" />
 
-        <!-- Tipo de hábito -->
         <TextView
             android:id="@+id/typeTextView"
             android:layout_width="wrap_content"
@@ -162,7 +157,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/studyButton" />
 
-        <!-- Botones de tipo en línea -->
         <LinearLayout
             android:id="@+id/typeLayout"
             android:layout_width="0dp"
@@ -283,7 +277,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Frecuencia -->
         <TextView
             android:id="@+id/frecuencyTextView"
             android:layout_width="wrap_content"
@@ -327,10 +320,6 @@
                 android:textColor="#333333"
                 android:buttonTint="#00A6FB" />
         </RadioGroup>
-
-        <!-- Hora -->
-
-        <!-- Botón de añadir -->
 
         <TextView
             android:id="@+id/timeTextView"
@@ -380,7 +369,7 @@
             app:elevation="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/timeText"
             app:layout_constraintVertical_bias="0.0" />
