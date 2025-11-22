@@ -28,13 +28,23 @@ public class TrackerFragment extends Fragment {
 
         RecyclerView recyclerView = binding.recyclerViewAreas;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(false);
 
         adapter = new AreaTrackerAdapter();
         recyclerView.setAdapter(adapter);
 
         trackerViewModel.getHabitAreas().observe(getViewLifecycleOwner(), habitAreas -> {
-            adapter.setHabitAreas(habitAreas);
+            if (habitAreas != null) {
+                adapter.setHabitAreas(habitAreas);
+            }
+        });
+
+        trackerViewModel.getSummary().observe(getViewLifecycleOwner(), summary -> {
+            if (summary != null) {
+                binding.textActiveDays.setText(String.valueOf(summary.getTotalActiveDays()));
+                binding.textBestStreak.setText(String.valueOf(summary.getBestStreak()));
+                binding.textTotalCompletions.setText(String.valueOf(summary.getTotalCompletions()));
+            }
         });
 
         return root;

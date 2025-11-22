@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.Calendar;
 import java.util.List;
 import es.ucm.fdi.pad.hahabit.data.Habit;
+import es.ucm.fdi.pad.hahabit.data.HabitCompletion;
 import es.ucm.fdi.pad.hahabit.data.HabitRepository;
 
 public class HomeViewModel extends AndroidViewModel {
@@ -16,7 +17,6 @@ public class HomeViewModel extends AndroidViewModel {
     private final LiveData<List<Habit>> allHabits;
     private final MutableLiveData<Calendar> selectedDate;
 
-    // Constructor SOLO con Application - obligatorio para AndroidViewModel
     public HomeViewModel(@NonNull Application application) {
         super(application);
 
@@ -63,5 +63,23 @@ public class HomeViewModel extends AndroidViewModel {
 
     public void delete(Habit habit) {
         repository.delete(habit);
+    }
+
+    public void markHabitCompleted(Habit habit, boolean isCompleted) {
+        habit.setDone(isCompleted);
+        repository.update(habit);
+
+        long todayStart = HabitRepository.getTodayStart();
+
+        if (isCompleted) {
+            HabitCompletion completion = new HabitCompletion(
+                    habit.getId(),
+                    habit.getArea(),
+                    todayStart
+            );
+            repository.insertCompletion(completion);
+        } else {
+            repository.deleteCompletion(habit.getId(), todayStart);
+        }
     }
 }
