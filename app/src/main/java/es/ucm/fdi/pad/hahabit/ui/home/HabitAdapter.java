@@ -36,7 +36,7 @@ public class HabitAdapter extends ListAdapter<Habit, HabitAdapter.HabitViewHolde
         public boolean areContentsTheSame(@NonNull Habit oldItem, @NonNull Habit newItem) {
             return oldItem.getTitle().equals(newItem.getTitle()) &&
                     oldItem.isDone() == newItem.isDone() &&
-                    oldItem.getProgress().equals(newItem.getProgress());
+                    oldItem.getArea().equals(newItem.getArea());
         }
     };
 
@@ -61,12 +61,16 @@ public class HabitAdapter extends ListAdapter<Habit, HabitAdapter.HabitViewHolde
         holder.checkBox.setChecked(habit.isDone());
 
         // Configurar la barra de progreso
-        if (habit.getProgress() != null) {
+        if (habit.getProgress() != null && habit.getProgress() > 0) {
             holder.progressBar.setVisibility(View.VISIBLE);
             holder.progressBar.setProgress((int) (habit.getProgress() * 100));
         } else {
             holder.progressBar.setVisibility(View.GONE);
         }
+
+        // Cambiar fondo según el área
+        int backgroundRes = getBackgroundForArea(habit.getArea());
+        holder.cardContainer.setBackgroundResource(backgroundRes);
 
         // Click en el item completo
         holder.itemView.setOnClickListener(v -> {
@@ -76,6 +80,8 @@ public class HabitAdapter extends ListAdapter<Habit, HabitAdapter.HabitViewHolde
         });
 
         // Click en el checkbox
+        holder.checkBox.setOnCheckedChangeListener(null);
+        holder.checkBox.setChecked(habit.isDone());
         holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (listener != null && buttonView.isPressed()) {
                 listener.onHabitChecked(habit, isChecked);
@@ -83,10 +89,27 @@ public class HabitAdapter extends ListAdapter<Habit, HabitAdapter.HabitViewHolde
         });
     }
 
+    private int getBackgroundForArea(String area) {
+        if (area == null) return R.drawable.bg_habit_otros;
+
+        switch (area.toLowerCase()) {
+            case "cocina":
+                return R.drawable.bg_habit_cocina;
+            case "deporte":
+            case "salud":
+                return R.drawable.bg_habit_deporte;
+            case "estudio":
+                return R.drawable.bg_habit_estudio;
+            default:
+                return R.drawable.bg_habit_otros;
+        }
+    }
+
     static class HabitViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitle, tvArea;
         CheckBox checkBox;
         ProgressBar progressBar;
+        View cardContainer;
 
         HabitViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -94,6 +117,7 @@ public class HabitAdapter extends ListAdapter<Habit, HabitAdapter.HabitViewHolde
             tvArea = itemView.findViewById(R.id.tvHabitArea);
             checkBox = itemView.findViewById(R.id.checkboxHabit);
             progressBar = itemView.findViewById(R.id.progressBarHabit);
+            cardContainer = itemView.findViewById(R.id.habitCardContainer);
         }
     }
 }
