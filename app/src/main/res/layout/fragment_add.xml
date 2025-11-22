@@ -475,7 +475,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/frequencyGroup">
 
                 <EditText
                     android:id="@+id/editTextDias"
@@ -499,6 +502,12 @@
             </LinearLayout>
         </LinearLayout>
 
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/frequencyBarrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="layoutDiasSemana,layoutIntervalo" />
 
         <TextView
             android:id="@+id/timeTextView"
@@ -512,7 +521,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutDiasSemana" />
+            app:layout_constraintTop_toBottomOf="@+id/frequencyBarrier" />
 
         <EditText
             android:id="@+id/timeText"
