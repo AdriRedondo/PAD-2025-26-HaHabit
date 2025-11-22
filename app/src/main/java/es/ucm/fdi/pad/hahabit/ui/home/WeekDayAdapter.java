@@ -76,6 +76,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.DayViewH
     @Override
     public void onBindViewHolder(@NonNull DayViewHolder holder, int position) {
         Calendar day = weekDays.get(position);
+        android.util.Log.d("WeekDayAdapter", "onBindViewHolder pos=" + position + " día=" + day.get(Calendar.DAY_OF_MONTH));
 
         // Nombre del día (LUN, MAR, etc.) - position corresponde a lunes=0, martes=1, etc.
         holder.tvDayName.setText(DAY_NAMES[position]);

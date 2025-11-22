@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CalendarView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -28,15 +27,12 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
     private WeekDayAdapter weekDayAdapter;
     private HabitAdapter habitAdapter;
 
-    private MaterialCardView cardWeekCalendar, cardFullCalendar;
+    private MaterialCardView cardWeekCalendar;
     private RecyclerView rvWeekDays, rvHabits;
-    private CalendarView calendarView;
     private TextView tvMonthYear;
     private View emptyState;
     private FloatingActionButton fabAddHabit;
     private ImageButton btnPrevWeek, btnNextWeek;
-
-    private boolean isCalendarExpanded = false;
 
     @Nullable
     @Override
@@ -58,10 +54,8 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
 
     private void initViews(View view) {
         cardWeekCalendar = view.findViewById(R.id.cardWeekCalendar);
-        cardFullCalendar = view.findViewById(R.id.cardFullCalendar);
         rvWeekDays = view.findViewById(R.id.rvWeekDays);
         rvHabits = view.findViewById(R.id.rvHabits);
-        calendarView = view.findViewById(R.id.calendarView);
         tvMonthYear = view.findViewById(R.id.tvMonthYear);
         emptyState = view.findViewById(R.id.emptyState);
         fabAddHabit = view.findViewById(R.id.fabAddHabit);
@@ -116,26 +110,18 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
     }
 
     private void setupClickListeners() {
-        tvMonthYear.setOnClickListener(v -> toggleCalendar());
-
-        btnPrevWeek.setOnClickListener(v -> viewModel.moveWeek(-1));
-        btnNextWeek.setOnClickListener(v -> viewModel.moveWeek(1));
-
-        calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
-            Calendar selected = Calendar.getInstance();
-            selected.set(year, month, dayOfMonth);
-            viewModel.setSelectedDate(selected);
-            toggleCalendar();
+        btnPrevWeek.setOnClickListener(v -> {
+            android.util.Log.d("HomeFragment", "btnPrevWeek clicked!");
+            viewModel.moveWeek(-1);
+        });
+        btnNextWeek.setOnClickListener(v -> {
+            android.util.Log.d("HomeFragment", "btnNextWeek clicked!");
+            viewModel.moveWeek(1);
         });
 
         fabAddHabit.setOnClickListener(v -> {
             // TODO: Abrir pantalla de crear hábito
         });
-    }
-
-    private void toggleCalendar() {
-        isCalendarExpanded = !isCalendarExpanded;
-        cardFullCalendar.setVisibility(isCalendarExpanded ? View.VISIBLE : View.GONE);
     }
 
     private void updateWeekDisplay(Calendar date) {
@@ -149,7 +135,11 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
         weekDayAdapter.setWeekFromDate(date);
         weekDayAdapter.setSelectedDate(date);
 
-        calendarView.setDate(date.getTimeInMillis());
+        // Forzar actualización del RecyclerView
+        rvWeekDays.post(() -> {
+            rvWeekDays.setAdapter(null);
+            rvWeekDays.setAdapter(weekDayAdapter);
+        });
     }
 
     @Override
