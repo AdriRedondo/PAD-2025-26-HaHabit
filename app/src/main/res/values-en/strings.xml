@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HaHabit</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_add">Add</string>
+    <string name="title_tracker">Tracker</string>
+    <string name="title">Title</string>
+    <string name="time">Time</string>
+    <string name="frequency">Frequency</string>
+    <string name="list">List</string>
+    <string name="standard">Standard</string>
+    <string name="timer">Timer</string>
+    <string name="type">Type</string>
+    <string name="area">Area</string>
+    <string name="add_a_title">Add a title...</string>
+    <string name="cooking">Cooking</string>
+    <string name="study">Study</string>
+    <string name="sports">Sports</string>
+    <string name="others">Other</string>
+    <string name="weekly">Weekly</string>
+    <string name="every_other_day">Choose a range of days</string>
+    <string name="add_habbit">Add habit</string>
+    <string name="add_a_time">Add a time...</string>
+    <string name="selecciona_los_dias">Choose the days:</string>
+    <string name="l">M</string>
+    <string name="m">T</string>
+    <string name="x">W</string>
+    <string name="j">Th</string>
+    <string name="v">F</string>
+    <string name="s">S</string>
+    <string name="d">Sn</string>
+    <string name="repetir_cada">Repeat every:</string>
+    <string name="ej_3">Ex: 3</string>
+    <string name="dias">days</string>
+</resources>
