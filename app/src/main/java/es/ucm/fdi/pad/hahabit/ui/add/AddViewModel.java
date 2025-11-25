@@ -109,20 +109,40 @@ public class AddViewModel extends AndroidViewModel {
 
     public Habit buildHabit() {
 
-        // pasar la lista de los dias de la semana a un string
-        String dias = selectedWeekDays.getValue().stream().map(String::valueOf).collect(Collectors.joining(","));
+        Integer freq = typeFrequency.getValue();
+        Integer interval = intervalDays.getValue();
 
+        // pasar la lista de los dias de la semana a un string si es semanal
+        String dias = "";
+        if (freq != null && freq == 0)    // 0 = semanal
+            dias = selectedWeekDays.getValue().stream().map(String::valueOf).collect(Collectors.joining(","));
+        // Si es intervalo de dias, limpio los dias semanales
+        if (freq != null && freq == 1) {   // 1 = intervalo
+            dias = "";
+        }
         return new Habit(
                 title.getValue(),
                 area.getValue(),
                 type.getValue(),
                 0.0,                // progress
                 false,                      // done
-                typeFrequency.getValue(),
+                freq,
                 dias,                       // daysFrequency
-                intervalDays.getValue()
+                interval
         );
     }
+
+    public void reset() { //para resetear la ventana despues de crear un habito
+        title.setValue("");
+        area.setValue("");
+        type.setValue("");
+        typeFrequency.setValue(0);
+        selectedWeekDays.setValue(new ArrayList<>());
+        intervalDays.setValue(-1);
+        time.setValue(null);
+    }
+
+
     public void insertHabit(Habit habit) {
         repository.insert(habit);
     }

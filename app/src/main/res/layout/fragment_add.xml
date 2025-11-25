@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA"
+    android:background="@color/blanco_base"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +19,7 @@
             android:text="@string/title"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="#333333"
+            android:textColor="@color/gris_oscuro"
             android:fontFamily="sans-serif-medium"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,8 +35,8 @@
             android:ems="10"
             android:hint="@string/add_a_title"
             android:inputType="text"
-            android:textColorHint="#999999"
-            android:textColor="#333333"
+            android:textColorHint="@color/gris_muy_claro"
+            android:textColor="@color/gris_oscuro"
             android:fontFamily="sans-serif"
             android:elevation="2dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +51,7 @@
             android:text="@string/area"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="#333333"
+            android:textColor="@color/gris_oscuro"
             android:fontFamily="sans-serif-medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleText" />
@@ -62,10 +62,10 @@
             android:layout_height="70dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="8dp"
-            android:backgroundTint="#78BC61"
+            android:backgroundTint="@color/verde_claro"
             android:fontFamily="sans-serif-medium"
             android:text="@string/cooking"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="14sp"
             app:cornerRadius="20dp"
             app:elevation="3dp"
@@ -73,11 +73,11 @@
             app:iconGravity="start"
             app:iconPadding="8dp"
             app:iconSize="32dp"
-            app:iconTint="#FFFFFF"
+            app:iconTint="@color/white"
             app:layout_constraintEnd_toStartOf="@+id/sportsButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/areaTextView"
-            app:rippleColor="#040404" />
+            app:rippleColor="@color/black" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/sportsButton"
@@ -85,9 +85,9 @@
             android:layout_height="70dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            android:backgroundTint="#FF686B"
+            android:backgroundTint="@color/rojo_claro"
             android:text="@string/sports"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:fontFamily="sans-serif-medium"
             android:textSize="14sp"
             app:cornerRadius="20dp"
@@ -96,11 +96,11 @@
             app:iconGravity="start"
             app:iconPadding="8dp"
             app:iconSize="32dp"
-            app:iconTint="#FFFFFF"
+            app:iconTint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cookingButton"
             app:layout_constraintTop_toBottomOf="@+id/areaTextView"
-            app:rippleColor="#040404"/>
+            app:rippleColor="@color/black"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/studyButton"
@@ -108,9 +108,9 @@
             android:layout_height="70dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="8dp"
-            android:backgroundTint="#00A6FB"
+            android:backgroundTint="@color/azul_claro"
             android:text="@string/study"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:fontFamily="sans-serif-medium"
             android:textSize="14sp"
             app:cornerRadius="20dp"
@@ -119,11 +119,11 @@
             app:iconGravity="start"
             app:iconPadding="8dp"
             app:iconSize="32dp"
-            app:iconTint="#FFFFFF"
+            app:iconTint="@color/white"
             app:layout_constraintEnd_toStartOf="@+id/othersButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cookingButton"
-            app:rippleColor="#040404"/>
+            app:rippleColor="@color/black"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/othersButton"
@@ -131,9 +131,9 @@
             android:layout_height="70dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            android:backgroundTint="#F8BD4F"
+            android:backgroundTint="@color/amarillo_anaranjado"
             android:text="@string/others"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:fontFamily="sans-serif-medium"
             android:textSize="14sp"
             app:cornerRadius="20dp"
@@ -142,11 +142,11 @@
             app:iconGravity="start"
             app:iconPadding="8dp"
             app:iconSize="32dp"
-            app:iconTint="#FFFFFF"
+            app:iconTint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/studyButton"
             app:layout_constraintTop_toBottomOf="@+id/cookingButton"
-            app:rippleColor="#040404"/>
+            app:rippleColor="@color/black"/>
 
         <TextView
             android:id="@+id/typeTextView"
@@ -156,7 +156,7 @@
             android:text="@string/type"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="#333333"
+            android:textColor="@color/gris_oscuro"
             android:fontFamily="sans-serif-medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/studyButton" />
@@ -186,15 +186,15 @@
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     android:padding="0dp"
-                    app:backgroundTint="#FFFFFF"
+                    app:backgroundTint="@color/white"
                     app:cornerRadius="30dp"
                     app:elevation="2dp"
                     app:icon="@drawable/comenta_alt_check"
                     app:iconGravity="textStart"
                     app:iconPadding="0dp"
                     app:iconSize="30dp"
-                    app:iconTint="#333333"
-                    app:strokeColor="#E0E0E0"
+                    app:iconTint="@color/gris_oscuro"
+                    app:strokeColor="@color/white"
                     app:strokeWidth="2dp" />
 
                 <TextView
@@ -204,7 +204,7 @@
                     android:layout_marginTop="8dp"
                     android:text="@string/standard"
                     android:textSize="12sp"
-                    android:textColor="#666666"
+                    android:textColor="@color/gris"
                     android:fontFamily="sans-serif" />
             </LinearLayout>
 
@@ -222,15 +222,15 @@
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     android:padding="0dp"
-                    app:backgroundTint="#FFFFFF"
+                    app:backgroundTint="@color/white"
                     app:cornerRadius="30dp"
                     app:elevation="2dp"
                     app:icon="@drawable/hacer"
                     app:iconGravity="textStart"
                     app:iconPadding="0dp"
                     app:iconSize="30dp"
-                    app:iconTint="#333333"
-                    app:strokeColor="#E0E0E0"
+                    app:iconTint="@color/gris_oscuro"
+                    app:strokeColor="@color/white"
                     app:strokeWidth="2dp" />
 
                 <TextView
@@ -240,7 +240,7 @@
                     android:layout_marginTop="8dp"
                     android:text="@string/list"
                     android:textSize="12sp"
-                    android:textColor="#666666"
+                    android:textColor="@color/gris"
                     android:fontFamily="sans-serif" />
             </LinearLayout>
 
@@ -258,15 +258,15 @@
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     android:padding="0dp"
-                    app:backgroundTint="#FFFFFF"
+                    app:backgroundTint="@color/white"
                     app:cornerRadius="30dp"
                     app:elevation="2dp"
                     app:icon="@drawable/cronografo"
                     app:iconGravity="textStart"
                     app:iconPadding="0dp"
                     app:iconSize="30dp"
-                    app:iconTint="#333333"
-                    app:strokeColor="#E0E0E0"
+                    app:iconTint="@color/gris_oscuro"
+                    app:strokeColor="@color/white"
                     app:strokeWidth="2dp" />
 
                 <TextView
@@ -276,7 +276,7 @@
                     android:layout_marginTop="8dp"
                     android:text="@string/timer"
                     android:textSize="12sp"
-                    android:textColor="#666666"
+                    android:textColor="@color/gris"
                     android:fontFamily="sans-serif" />
             </LinearLayout>
         </LinearLayout>
@@ -289,7 +289,7 @@
             android:text="@string/frequency"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="#333333"
+            android:textColor="@color/gris_oscuro"
             android:fontFamily="sans-serif-medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/typeLayout" />
@@ -311,8 +311,8 @@
                 android:layout_weight="1"
                 android:text="@string/weekly"
                 android:fontFamily="sans-serif"
-                android:textColor="#333333"
-                android:buttonTint="#00A6FB"
+                android:textColor="@color/gris_oscuro"
+                android:buttonTint="@color/azul"
                 android:checked="true" />
 
             <RadioButton
@@ -322,8 +322,8 @@
                 android:layout_weight="1"
                 android:text="@string/every_other_day"
                 android:fontFamily="sans-serif"
-                android:textColor="#333333"
-                android:buttonTint="#00A6FB" />
+                android:textColor="@color/gris_oscuro"
+                android:buttonTint="@color/azul" />
         </RadioGroup>
 
         <LinearLayout
@@ -344,7 +344,7 @@
                 android:text="@string/selecciona_los_dias"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="#333333"
+                android:textColor="@color/gris_oscuro"
                 android:fontFamily="sans-serif-medium" />
 
             <LinearLayout
@@ -364,8 +364,8 @@
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     app:cornerRadius="24dp"
-                    app:backgroundTint="#E0E0E0"
-                    android:textColor="#333333" />
+                    app:backgroundTint="@color/white"
+                    android:textColor="@color/gris_oscuro" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnMartes"
@@ -378,8 +378,8 @@
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     app:cornerRadius="24dp"
-                    app:backgroundTint="#E0E0E0"
-                    android:textColor="#333333" />
+                    app:backgroundTint="@color/white"
+                    android:textColor="@color/gris_oscuro" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnMiercoles"
@@ -392,8 +392,8 @@
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     app:cornerRadius="24dp"
-                    app:backgroundTint="#E0E0E0"
-                    android:textColor="#333333" />
+                    app:backgroundTint="@color/white"
+                    android:textColor="@color/gris_oscuro" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnJueves"
@@ -406,8 +406,8 @@
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     app:cornerRadius="24dp"
-                    app:backgroundTint="#E0E0E0"
-                    android:textColor="#333333" />
+                    app:backgroundTint="@color/white"
+                    android:textColor="@color/gris_oscuro" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnViernes"
@@ -420,8 +420,8 @@
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     app:cornerRadius="24dp"
-                    app:backgroundTint="#E0E0E0"
-                    android:textColor="#333333" />
+                    app:backgroundTint="@color/white"
+                    android:textColor="@color/gris_oscuro" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSabado"
@@ -434,8 +434,8 @@
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     app:cornerRadius="24dp"
-                    app:backgroundTint="#E0E0E0"
-                    android:textColor="#333333" />
+                    app:backgroundTint="@color/white"
+                    android:textColor="@color/gris_oscuro" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnDomingo"
@@ -448,8 +448,8 @@
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     app:cornerRadius="24dp"
-                    app:backgroundTint="#E0E0E0"
-                    android:textColor="#333333" />
+                    app:backgroundTint="@color/white"
+                    android:textColor="@color/gris_oscuro" />
             </LinearLayout>
         </LinearLayout>
 
@@ -472,7 +472,7 @@
                 android:text="@string/repetir_cada"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="#333333"
+                android:textColor="@color/gris_oscuro"
                 android:fontFamily="sans-serif-medium" />
 
             <LinearLayout
@@ -491,8 +491,8 @@
                     android:hint="@string/ej_3"
                     android:inputType="number"
                     android:background="@drawable/edittext_background"
-                    android:textColorHint="#999999"
-                    android:textColor="#333333"
+                    android:textColorHint="@color/gris_muy_claro"
+                    android:textColor="@color/gris_oscuro"
                     android:fontFamily="sans-serif" />
 
                 <TextView
@@ -501,7 +501,7 @@
                     android:layout_marginStart="8dp"
                     android:text="@string/dias"
                     android:textSize="16sp"
-                    android:textColor="#333333"
+                    android:textColor="@color/gris_oscuro"
                     android:fontFamily="sans-serif" />
             </LinearLayout>
         </LinearLayout>
@@ -515,13 +515,13 @@
 
         <TextView
             android:id="@+id/timeTextView"
-            android:layout_width="46dp"
-            android:layout_height="26dp"
+            android:layout_width="80dp"
+            android:layout_height="29dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="56dp"
             android:fontFamily="sans-serif-medium"
             android:text="@string/time"
-            android:textColor="#333333"
+            android:textColor="@color/gris_oscuro"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -539,8 +539,8 @@
             android:fontFamily="sans-serif"
             android:hint="@string/add_a_time"
             android:inputType="time"
-            android:textColor="#333333"
-            android:textColorHint="#999999"
+            android:textColor="@color/gris_oscuro"
+            android:textColorHint="@color/gris_muy_claro"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -554,9 +554,9 @@
             android:layout_marginBottom="16dp"
             android:fontFamily="sans-serif-medium"
             android:text="@string/add_habbit"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="16sp"
-            app:backgroundTint="#00A6FB"
+            app:backgroundTint="@color/azul"
             app:cornerRadius="28dp"
             app:elevation="4dp"
             app:layout_constraintBottom_toBottomOf="parent"

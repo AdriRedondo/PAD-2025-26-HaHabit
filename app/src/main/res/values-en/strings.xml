@@ -22,7 +22,7 @@
     <string name="weekly">Weekly</string>
     <string name="every_other_day">Choose a range of days</string>
     <string name="add_habbit">Add habit</string>
-    <string name="add_a_time">Add a time...</string>
+    <string name="add_a_time">Add an hour...</string>
     <string name="selecciona_los_dias">Choose the days:</string>
     <string name="l">M</string>
     <string name="m">T</string>
