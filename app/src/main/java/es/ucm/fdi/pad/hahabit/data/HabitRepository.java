@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -14,6 +15,7 @@ import java.util.concurrent.Executors;
 public class HabitRepository {
 
     private final HabitDao habitDao;
+    private final HabitCompletionDao completionDao;
     private final LiveData<List<Habit>> allHabits;
 
     // ExecutorService para ejecutar tareas en un hilo secundario.
@@ -28,6 +30,7 @@ public class HabitRepository {
     public HabitRepository(Application application) {
         HabitDatabase database = HabitDatabase.getDatabase(application);
         habitDao = database.habitDao();
+        completionDao = database.habitCompletionDao();
 
         // Esto así porque el livedata ya se va actualizando, asi que mejor no crearlo de nuevo con getAllHabits() cada vez.
         allHabits = habitDao.getAllHabits();
@@ -59,6 +62,11 @@ public class HabitRepository {
         return allHabits;
     }
 
+
+    public LiveData<List<Habit>> getHabitsByDay(int dayOfWeek) {
+        // dayOfWeek: 1=lunes, 2=martes, ..., 7=domingo
+        return habitDao.getHabitsByDay(String.valueOf(dayOfWeek));
+    }
     public LiveData<Habit> getHabitById(int id) {
         return habitDao.getHabitById(id);
     }
@@ -72,4 +80,37 @@ public class HabitRepository {
     }
 
 
+    // ********* metodos de HabitCompletion **************
+    public void insertCompletion(HabitCompletion completion) {
+        executorService.execute(() -> completionDao.insert(completion));
+    }
+
+    public void deleteCompletion(int habitId, long date) {
+        executorService.execute(() -> completionDao.deleteByHabitAndDate(habitId, date));
+    }
+
+    public LiveData<List<HabitCompletion>> getCompletionsSince(long startDate) {
+        return completionDao.getCompletionsSince(startDate);
+    }
+
+    public LiveData<List<HabitCompletion>> getCompletionsByAreaSince(String area, long startDate) {
+        return completionDao.getCompletionsByAreaSince(area, startDate);
+    }
+
+    public LiveData<List<String>> getAllAreasFromHabits() {
+        return completionDao.getAllAreasFromHabits();
+    }
+
+    public static long getStartOfDay(Calendar calendar) {
+        Calendar cal = (Calendar) calendar.clone();
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTimeInMillis();
+    }
+
+    public static long getTodayStart() {
+        return getStartOfDay(Calendar.getInstance());
+    }
 }

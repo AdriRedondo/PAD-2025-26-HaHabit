@@ -30,4 +30,7 @@ public interface HabitDao {
 
     @Query("SELECT * FROM habitos WHERE id = :habitId")
     LiveData<Habit> getHabitById(int habitId);
+
+    @Query("SELECT * FROM habitos WHERE daysFrequency LIKE '%' || :dayOfWeek || '%' ORDER BY id ASC")
+    LiveData<List<Habit>> getHabitsByDay(String dayOfWeek);
 }
