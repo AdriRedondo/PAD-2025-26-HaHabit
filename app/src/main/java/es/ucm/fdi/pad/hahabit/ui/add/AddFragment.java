@@ -40,6 +40,10 @@ public class AddFragment extends Fragment {
         inicializarBotonesSemanales();
         configurarListeners();
 
+        //esto de aqui es para que el boton del radioGroup cuente como marcado al iniciar
+        binding.frequencyGroup.check(R.id.weeklyButton);
+        addViewModel.setTypeFrequency(0);
+
         return root;
     }
 
@@ -102,7 +106,7 @@ public class AddFragment extends Fragment {
                     binding.layoutIntervalo.setVisibility(View.VISIBLE);
 
                     // Se guarda el tipo de fecuencia
-                    addViewModel.setTypeFrequency(0);
+                    addViewModel.setTypeFrequency(1);
                 }
         });
 
