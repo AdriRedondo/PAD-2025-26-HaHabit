@@ -57,7 +57,7 @@
             app:layout_constraintTop_toBottomOf="@+id/titleText" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/CookingButton"
+            android:id="@+id/cookingButton"
             android:layout_width="0dp"
             android:layout_height="70dp"
             android:layout_marginTop="12dp"
@@ -97,7 +97,7 @@
             app:iconSize="32dp"
             app:iconTint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/CookingButton"
+            app:layout_constraintStart_toEndOf="@+id/cookingButton"
             app:layout_constraintTop_toBottomOf="@+id/areaTextView" />
 
         <com.google.android.material.button.MaterialButton
@@ -120,7 +120,7 @@
             app:iconTint="#FFFFFF"
             app:layout_constraintEnd_toStartOf="@+id/othersButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/CookingButton" />
+            app:layout_constraintTop_toBottomOf="@+id/cookingButton" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/othersButton"
@@ -142,7 +142,7 @@
             app:iconTint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/studyButton"
-            app:layout_constraintTop_toBottomOf="@+id/CookingButton" />
+            app:layout_constraintTop_toBottomOf="@+id/cookingButton" />
 
         <TextView
             android:id="@+id/typeTextView"
@@ -543,7 +543,7 @@
             app:layout_constraintTop_toBottomOf="@+id/timeTextView" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/textAdd"
+            android:id="@+id/addButton"
             android:layout_width="0dp"
             android:layout_height="56dp"
             android:layout_marginTop="32dp"
