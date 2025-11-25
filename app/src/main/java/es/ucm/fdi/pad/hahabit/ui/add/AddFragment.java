@@ -56,15 +56,29 @@ public class AddFragment extends Fragment {
     private void configurarListeners() {
 
         // Area
-        binding.cookingButton.setOnClickListener(v -> addViewModel.setArea("Cocinar"));
-        binding.sportsButton.setOnClickListener(v -> addViewModel.setArea("Deporte"));
-        binding.studyButton.setOnClickListener(v -> addViewModel.setArea("Estudio"));
-        binding.othersButton.setOnClickListener(v -> addViewModel.setArea("Otros"));
+        binding.cookingButton.setOnClickListener(v ->
+                {addViewModel.setArea("Cocinar");
+                    marcarBotonArea(binding.cookingButton, 0xFF78BC61);});
+        binding.sportsButton.setOnClickListener(v ->
+                {addViewModel.setArea("Deporte");
+                    marcarBotonArea(binding.sportsButton, 0xFFFF686B);});
+        binding.studyButton.setOnClickListener(v ->
+                {addViewModel.setArea("Estudio");
+                    marcarBotonArea(binding.studyButton, 0xFF00A6FB);});
+        binding.othersButton.setOnClickListener(v ->
+                {addViewModel.setArea("Otros");
+                    marcarBotonArea(binding.othersButton, 0xFFF8BD4F);});
 
         // Tipo
-        binding.standarButton.setOnClickListener(v -> addViewModel.setType("Estandar"));
-        binding.listButton.setOnClickListener(v -> addViewModel.setType("Lista"));
-        binding.timerButton.setOnClickListener(v -> addViewModel.setType("Temporizador"));
+        binding.standarButton.setOnClickListener(v ->
+                {addViewModel.setType("Estandar");
+                    marcarBotonTipo(binding.standarButton);});
+        binding.listButton.setOnClickListener(v ->
+                {addViewModel.setType("Lista");
+                    marcarBotonTipo(binding.listButton);});
+        binding.timerButton.setOnClickListener(v ->
+                {addViewModel.setType("Temporizador");
+                    marcarBotonTipo(binding.timerButton);});
 
         // Frecuncia semanal o intervalo
         binding.frequencyGroup.setOnCheckedChangeListener((group, checkedId) -> {
@@ -116,6 +130,43 @@ public class AddFragment extends Fragment {
     }
 
     //  Seleccionar/deseleccionar dia de la semana y avisar al ViewModel
+
+    // Metodo para marcar el boton de area seleccionado
+    private void marcarBotonArea(MaterialButton seleccionado, int colorOriginal) {
+
+        binding.cookingButton.setBackgroundTintList(ColorStateList.valueOf(0xFF78BC61));
+        binding.sportsButton.setBackgroundTintList(ColorStateList.valueOf(0xFFFF686B));
+        binding.studyButton.setBackgroundTintList(ColorStateList.valueOf(0xFF00A6FB));
+        binding.othersButton.setBackgroundTintList(ColorStateList.valueOf(0xFFF8BD4F));
+
+        // Oscurecer el seleccionado
+        seleccionado.setBackgroundTintList(ColorStateList.valueOf(oscurecerColor(colorOriginal)));
+    }
+
+    // Marcar botón de tipo seleccionado
+    private void marcarBotonTipo(MaterialButton seleccionado) {
+
+        binding.standarButton.setBackgroundTintList(ColorStateList.valueOf(0xFFFFFFFF));
+        binding.standarButton.setIconTint(ColorStateList.valueOf(0xFF333333));
+        binding.listButton.setBackgroundTintList(ColorStateList.valueOf(0xFFFFFFFF));
+        binding.listButton.setIconTint(ColorStateList.valueOf(0xFF333333));
+        binding.timerButton.setBackgroundTintList(ColorStateList.valueOf(0xFFFFFFFF));
+        binding.timerButton.setIconTint(ColorStateList.valueOf(0xFF333333));
+
+
+        seleccionado.setBackgroundTintList(ColorStateList.valueOf(0xFF00A6FB));
+        seleccionado.setIconTint(ColorStateList.valueOf(0xFFFFFFFF));
+    }
+
+    // Metodo para oscurecer el color de los botones
+    private int oscurecerColor(int color) {
+        float factor = 0.5f;
+        int a = (color >> 24) & 0xFF;
+        int r = (int) (((color >> 16) & 0xFF) * factor);
+        int g = (int) (((color >> 8) & 0xFF) * factor);
+        int b = (int) ((color & 0xFF) * factor);
+        return (a << 24) | (r << 16) | (g << 8) | b;
+    }
     private void toggleBotonDia(MaterialButton btn) {
 
         // Se obtine a que día pertenece el boton

@@ -63,9 +63,9 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="8dp"
             android:backgroundTint="#78BC61"
+            android:fontFamily="sans-serif-medium"
             android:text="@string/cooking"
             android:textColor="#FFFFFF"
-            android:fontFamily="sans-serif-medium"
             android:textSize="14sp"
             app:cornerRadius="20dp"
             app:elevation="3dp"
@@ -76,7 +76,8 @@
             app:iconTint="#FFFFFF"
             app:layout_constraintEnd_toStartOf="@+id/sportsButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/areaTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/areaTextView"
+            app:rippleColor="#040404" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/sportsButton"
@@ -98,7 +99,8 @@
             app:iconTint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cookingButton"
-            app:layout_constraintTop_toBottomOf="@+id/areaTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/areaTextView"
+            app:rippleColor="#040404"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/studyButton"
@@ -120,7 +122,8 @@
             app:iconTint="#FFFFFF"
             app:layout_constraintEnd_toStartOf="@+id/othersButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cookingButton" />
+            app:layout_constraintTop_toBottomOf="@+id/cookingButton"
+            app:rippleColor="#040404"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/othersButton"
@@ -142,7 +145,8 @@
             app:iconTint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/studyButton"
-            app:layout_constraintTop_toBottomOf="@+id/cookingButton" />
+            app:layout_constraintTop_toBottomOf="@+id/cookingButton"
+            app:rippleColor="#040404"/>
 
         <TextView
             android:id="@+id/typeTextView"
