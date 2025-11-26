@@ -1,12 +1,17 @@
 package es.ucm.fdi.pad.hahabit.ui.add;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -20,6 +25,7 @@ import java.util.Map;
 import es.ucm.fdi.pad.hahabit.R;
 import es.ucm.fdi.pad.hahabit.data.Habit;
 import es.ucm.fdi.pad.hahabit.databinding.FragmentAddBinding;
+import es.ucm.fdi.pad.hahabit.notifications.HabitReminderManager;
 
 public class AddFragment extends Fragment {
 
@@ -29,6 +35,10 @@ public class AddFragment extends Fragment {
     //botones con el día de la semana
     private Map<MaterialButton, Integer> weekDayBtns = new HashMap<>();
 
+    // Launcher para solicitar permisos de notificación
+    private ActivityResultLauncher<String> requestPermissionLauncher;
+    private Habit pendingHabit = null;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -36,6 +46,21 @@ public class AddFragment extends Fragment {
                 new ViewModelProvider(this).get(AddViewModel.class);
         binding = FragmentAddBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        // Inicializar el launcher para permisos
+        requestPermissionLauncher = registerForActivityResult(
+                new ActivityResultContracts.RequestPermission(),
+                isGranted -> {
+                    if (isGranted && pendingHabit != null) {
+                        // Permiso concedido, programar recordatorio
+                        HabitReminderManager reminderManager = new HabitReminderManager(requireContext());
+                        reminderManager.scheduleReminder(pendingHabit);
+                        pendingHabit = null;
+                    } else if (!isGranted) {
+                        Toast.makeText(requireContext(), "Permiso de notificaciones denegado", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
 
         inicializarBotonesSemanales();
         configurarListeners();
@@ -87,8 +112,11 @@ public class AddFragment extends Fragment {
         // Intervalo
         binding.editTextDias.setText("");
 
-        // (Si usabas hora, aquí también se reinicia)
-        // binding.timeText.setText("Seleccionar hora");
+        // Recordatorio
+        binding.reminderCheckbox.setChecked(false);
+        binding.layoutReminder.setVisibility(View.GONE);
+        binding.timePicker.setHour(9);
+        binding.timePicker.setMinute(0);
     }
     private void configurarListeners() {
 
@@ -148,6 +176,15 @@ public class AddFragment extends Fragment {
             btn.setOnClickListener(v -> toggleBotonDia(btn));
         }
 
+        // Checkbox de recordatorio
+        binding.reminderCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            addViewModel.setReminderEnabled(isChecked);
+            if (isChecked) {
+                binding.layoutReminder.setVisibility(View.VISIBLE);
+            } else {
+                binding.layoutReminder.setVisibility(View.GONE);
+            }
+        });
 
         // Boton de añadir habito
         binding.addButton.setOnClickListener(v -> {
@@ -159,6 +196,11 @@ public class AddFragment extends Fragment {
 
                 System.out.println("Hábito creado: " + habit.getTitle() + " - " + habit.getDaysFrequency());
                 addViewModel.insertHabit(habit);
+
+                // Programar notificación si está habilitada
+                if (habit.isReminderEnabled()) {
+                    scheduleReminderWithPermission(habit);
+                }
 
                 Toast.makeText(requireContext(), "Hábito creado correctamente", Toast.LENGTH_SHORT).show();
 
@@ -234,13 +276,7 @@ public class AddFragment extends Fragment {
         // Titulo
         addViewModel.setTitle(binding.titleText.getText().toString());
 
-        // Tiempo
-        /*String timeText = binding.timeText.getText().toString(); // "14:30"
-        String[] strings = timeText.split(":");
-        int hour = Integer.parseInt(strings[0]);
-        int minute = Integer.parseInt(strings[1]);
-        addViewModel.setTime(hour, minute);*/
-
+        // Intervalo de días
         String intervalText = binding.editTextDias.getText().toString().trim();
         int interval = 0; // valor por defecto
 
@@ -255,6 +291,14 @@ public class AddFragment extends Fragment {
 
         // ahora sí podemos pasarlo al ViewModel
         addViewModel.setIntervalDays(interval);
+
+        // Hora del recordatorio
+        if (binding.reminderCheckbox.isChecked()) {
+            int hour = binding.timePicker.getHour();
+            int minute = binding.timePicker.getMinute();
+            String timeText = String.format("%02d:%02d", hour, minute);
+            addViewModel.setReminderTime(timeText);
+        }
     }
 
     private boolean validate() {
@@ -299,16 +343,31 @@ public class AddFragment extends Fragment {
             }
         }
 
-        // Hora
-        /*String time = binding.timeText.getText().toString().trim();
-        if (time.isEmpty()) {
-            Toast.makeText(requireContext(), "Por favor, añada una hora", Toast.LENGTH_SHORT).show();
-            return false;
-        }*/
+        // No necesitamos validar la hora del recordatorio porque el TimePicker siempre tiene un valor válido
 
         return true;
     }
 
+
+    private void scheduleReminderWithPermission(Habit habit) {
+        // Para Android 13+ (API 33+), necesitamos solicitar permiso POST_NOTIFICATIONS
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS)
+                    == PackageManager.PERMISSION_GRANTED) {
+                // Permiso ya concedido
+                HabitReminderManager reminderManager = new HabitReminderManager(requireContext());
+                reminderManager.scheduleReminder(habit);
+            } else {
+                // Solicitar permiso
+                pendingHabit = habit;
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+            }
+        } else {
+            // Para versiones anteriores a Android 13, no se necesita permiso runtime
+            HabitReminderManager reminderManager = new HabitReminderManager(requireContext());
+            reminderManager.scheduleReminder(habit);
+        }
+    }
 
     @Override
     public void onDestroyView() {

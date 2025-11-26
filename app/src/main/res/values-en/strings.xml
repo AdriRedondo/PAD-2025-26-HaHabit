@@ -34,4 +34,5 @@
     <string name="repetir_cada">Repeat every:</string>
     <string name="ej_3">Ex: 3</string>
     <string name="dias">days</string>
+    <string name="enable_reminder">Enable reminder</string>
 </resources>

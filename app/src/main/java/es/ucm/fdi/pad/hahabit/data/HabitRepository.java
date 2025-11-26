@@ -67,6 +67,14 @@ public class HabitRepository {
         // dayOfWeek: 1=lunes, 2=martes, ..., 7=domingo
         return habitDao.getHabitsByDay(String.valueOf(dayOfWeek));
     }
+
+    public LiveData<List<Habit>> getPendingHabitsByDay(int dayOfWeek, long date) {
+        return habitDao.getPendingHabitsByDay(String.valueOf(dayOfWeek), date);
+    }
+
+    public LiveData<List<Habit>> getCompletedHabitsByDay(int dayOfWeek, long date) {
+        return habitDao.getCompletedHabitsByDay(String.valueOf(dayOfWeek), date);
+    }
     public LiveData<Habit> getHabitById(int id) {
         return habitDao.getHabitById(id);
     }

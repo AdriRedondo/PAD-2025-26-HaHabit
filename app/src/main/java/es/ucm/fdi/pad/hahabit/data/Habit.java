@@ -17,10 +17,12 @@ public class Habit {
     private int typeFrequency;
     private String daysFrequency;
     private Integer frequency;
+    private boolean reminderEnabled;
+    private String reminderTime;
 
     // Constructor
     public Habit(String title, String area, String type, Double progress, boolean done,
-                 int typeFrequency, String daysFrequency, Integer frequency) {
+                 int typeFrequency, String daysFrequency, Integer frequency, boolean reminderEnabled, String reminderTime) {
         this.title = title;
         this.area = area;
         this.type = type;
@@ -29,6 +31,8 @@ public class Habit {
         this.typeFrequency = typeFrequency;
         this.daysFrequency = daysFrequency;
         this.frequency = frequency;
+        this.reminderEnabled = reminderEnabled;
+        this.reminderTime = reminderTime;
     }
 
     // Getters y Setters
@@ -58,4 +62,10 @@ public class Habit {
 
     public Integer getFrequency() { return frequency; }
     public void setFrequency(Integer frequency) { this.frequency = frequency; }
+
+    public boolean isReminderEnabled() { return reminderEnabled; }
+    public void setReminderEnabled(boolean reminderEnabled) { this.reminderEnabled = reminderEnabled; }
+
+    public String getReminderTime() { return reminderTime; }
+    public void setReminderTime(String reminderTime) { this.reminderTime = reminderTime; }
 }

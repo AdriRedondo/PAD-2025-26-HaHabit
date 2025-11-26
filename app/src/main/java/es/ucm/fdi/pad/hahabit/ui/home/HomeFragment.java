@@ -26,11 +26,12 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
     private HomeViewModel viewModel;
     private WeekDayAdapter weekDayAdapter;
     private HabitAdapter habitAdapter;
+    private HabitAdapter completedAdapter;
 
     private MaterialCardView cardWeekCalendar, cardFullCalendar;
-    private RecyclerView rvWeekDays, rvHabits;
+    private RecyclerView rvWeekDays, rvHabits, rvCompletedHabits;
     private CalendarView calendarView;
-    private TextView tvMonthYear;
+    private TextView tvMonthYear, tvPendingTitle, tvCompletedTitle;
     private View emptyState;
     private ImageButton btnPrevWeek, btnNextWeek;
 
@@ -59,8 +60,11 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
         cardFullCalendar = view.findViewById(R.id.cardFullCalendar);
         rvWeekDays = view.findViewById(R.id.rvWeekDays);
         rvHabits = view.findViewById(R.id.rvHabits);
+        rvCompletedHabits = view.findViewById(R.id.rvCompletedHabits);
         calendarView = view.findViewById(R.id.calendarView);
         tvMonthYear = view.findViewById(R.id.tvMonthYear);
+        tvPendingTitle = view.findViewById(R.id.tvPendingTitle);
+        tvCompletedTitle = view.findViewById(R.id.tvCompletedTitle);
         emptyState = view.findViewById(R.id.emptyState);
         btnPrevWeek = view.findViewById(R.id.btnPrevWeek);
         btnNextWeek = view.findViewById(R.id.btnNextWeek);
@@ -71,21 +75,54 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
 
         viewModel.getSelectedDate().observe(getViewLifecycleOwner(), this::updateWeekDisplay);
 
-        viewModel.getHabitsForSelectedDay().observe(getViewLifecycleOwner(), habits -> {
-            android.util.Log.d("HomeFragment", "Hábitos para el día: " + (habits != null ? habits.size() : 0));
-            if ((habits != null) && !habits.isEmpty()) {
-                habitAdapter.submitList(habits);
+        // Observar hábitos pendientes
+        viewModel.getPendingHabits().observe(getViewLifecycleOwner(), pendingHabits -> {
+            android.util.Log.d("HomeFragment", "Hábitos pendientes: " + (pendingHabits != null ? pendingHabits.size() : 0));
+            if (pendingHabits != null && !pendingHabits.isEmpty()) {
+                habitAdapter.submitList(pendingHabits);
                 rvHabits.setVisibility(View.VISIBLE);
-                emptyState.setVisibility(View.GONE);
+                tvPendingTitle.setVisibility(View.VISIBLE);
             } else {
                 habitAdapter.submitList(null);
                 rvHabits.setVisibility(View.GONE);
-                emptyState.setVisibility(View.VISIBLE);
+                tvPendingTitle.setVisibility(View.GONE);
             }
+            updateEmptyState();
         });
 
-        // TEMPORAL: Insertar hábito de prueba (quitar después de verificar)
-        // viewModel.insertTestHabit();
+        // Observar hábitos completados
+        viewModel.getCompletedHabits().observe(getViewLifecycleOwner(), completedHabits -> {
+            android.util.Log.d("HomeFragment", "Hábitos completados: " + (completedHabits != null ? completedHabits.size() : 0));
+            if (completedHabits != null && !completedHabits.isEmpty()) {
+                completedAdapter.submitList(completedHabits);
+                rvCompletedHabits.setVisibility(View.VISIBLE);
+                tvCompletedTitle.setVisibility(View.VISIBLE);
+            } else {
+                completedAdapter.submitList(null);
+                rvCompletedHabits.setVisibility(View.GONE);
+                tvCompletedTitle.setVisibility(View.GONE);
+            }
+            updateEmptyState();
+        });
+
+        // Observar si la fecha seleccionada es hoy para habilitar/deshabilitar checkboxes
+        viewModel.getIsSelectedDateToday().observe(getViewLifecycleOwner(), isToday -> {
+            android.util.Log.d("HomeFragment", "¿Es hoy?: " + isToday);
+            habitAdapter.setIsToday(isToday != null && isToday);
+            completedAdapter.setIsToday(isToday != null && isToday);
+        });
+
+    }
+
+    private void updateEmptyState() {
+        boolean hasPending = rvHabits.getVisibility() == View.VISIBLE;
+        boolean hasCompleted = rvCompletedHabits.getVisibility() == View.VISIBLE;
+
+        if (!hasPending && !hasCompleted) {
+            emptyState.setVisibility(View.VISIBLE);
+        } else {
+            emptyState.setVisibility(View.GONE);
+        }
     }
 
     private void setupWeekCalendar() {
@@ -99,7 +136,8 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
     }
 
     private void setupHabitsList() {
-        habitAdapter = new HabitAdapter();
+        // Adapter para hábitos pendientes (pueden ser marcados)
+        habitAdapter = new HabitAdapter(false); // false = no es sección de completados
         habitAdapter.setOnHabitClickListener(new HabitAdapter.OnHabitClickListener() {
             @Override
             public void onHabitClick(Habit habit) {
@@ -114,6 +152,25 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
 
         rvHabits.setLayoutManager(new LinearLayoutManager(requireContext()));
         rvHabits.setAdapter(habitAdapter);
+
+        // Adapter para hábitos completados (NO pueden ser desmarcados)
+        completedAdapter = new HabitAdapter(true); // true = es sección de completados, siempre disabled
+        completedAdapter.setOnHabitClickListener(new HabitAdapter.OnHabitClickListener() {
+            @Override
+            public void onHabitClick(Habit habit) {
+                // TODO: Abrir detalle del hábito
+            }
+
+            @Override
+            public void onHabitChecked(Habit habit, boolean isChecked) {
+                // Este listener nunca debería llamarse porque los checkboxes están deshabilitados
+                // pero por si acaso:
+                viewModel.markHabitCompleted(habit, isChecked);
+            }
+        });
+
+        rvCompletedHabits.setLayoutManager(new LinearLayoutManager(requireContext()));
+        rvCompletedHabits.setAdapter(completedAdapter);
     }
 
     private void setupClickListeners() {

@@ -16,7 +16,9 @@ public class HomeViewModel extends AndroidViewModel {
 
     private final HabitRepository repository;
     private final MutableLiveData<Calendar> selectedDate;
-    private final LiveData<List<Habit>> habitsForSelectedDay;
+    private final LiveData<List<Habit>> pendingHabits;
+    private final LiveData<List<Habit>> completedHabits;
+    private final LiveData<Boolean> isSelectedDateToday;
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
@@ -24,12 +26,33 @@ public class HomeViewModel extends AndroidViewModel {
         repository = new HabitRepository(application);
         selectedDate = new MutableLiveData<>(Calendar.getInstance());
 
-        // Cuando cambia la fecha seleccionada, actualizar los hábitos filtrados
-        habitsForSelectedDay = Transformations.switchMap(selectedDate, date -> {
+        // Obtener hábitos pendientes directamente de la BD con la query
+        pendingHabits = Transformations.switchMap(selectedDate, date -> {
             int dayOfWeek = getDayOfWeekNumber(date);
-            android.util.Log.d("HomeViewModel", "Filtrando por día: " + dayOfWeek);
-            return repository.getHabitsByDay(dayOfWeek);
+            long dateStart = HabitRepository.getStartOfDay(date);
+            android.util.Log.d("HomeViewModel", "Obteniendo pendientes para día: " + dayOfWeek + ", fecha: " + dateStart);
+            return repository.getPendingHabitsByDay(dayOfWeek, dateStart);
         });
+
+        // Obtener hábitos completados directamente de la BD con la query
+        completedHabits = Transformations.switchMap(selectedDate, date -> {
+            int dayOfWeek = getDayOfWeekNumber(date);
+            long dateStart = HabitRepository.getStartOfDay(date);
+            android.util.Log.d("HomeViewModel", "Obteniendo completados para día: " + dayOfWeek + ", fecha: " + dateStart);
+            return repository.getCompletedHabitsByDay(dayOfWeek, dateStart);
+        });
+
+        // Detectar si la fecha seleccionada es hoy
+        isSelectedDateToday = Transformations.map(selectedDate, date -> {
+            if (date == null) return true;
+            Calendar today = Calendar.getInstance();
+            return isSameDay(date, today);
+        });
+    }
+
+    private boolean isSameDay(Calendar date1, Calendar date2) {
+        return date1.get(Calendar.YEAR) == date2.get(Calendar.YEAR) &&
+               date1.get(Calendar.DAY_OF_YEAR) == date2.get(Calendar.DAY_OF_YEAR);
     }
 
     // Convertir Calendar.DAY_OF_WEEK a nuestro formato (1=lunes, 7=domingo)
@@ -44,8 +67,16 @@ public class HomeViewModel extends AndroidViewModel {
         }
     }
 
-    public LiveData<List<Habit>> getHabitsForSelectedDay() {
-        return habitsForSelectedDay;
+    public LiveData<List<Habit>> getPendingHabits() {
+        return pendingHabits;
+    }
+
+    public LiveData<List<Habit>> getCompletedHabits() {
+        return completedHabits;
+    }
+
+    public LiveData<Boolean> getIsSelectedDateToday() {
+        return isSelectedDateToday;
     }
 
     public LiveData<Calendar> getSelectedDate() {
@@ -88,7 +119,9 @@ public class HomeViewModel extends AndroidViewModel {
                 false,
                 1,
                 "1,2,3,4,5",  // Lunes a viernes
-                5
+                5,
+                false,  // reminderEnabled
+                ""      // reminderTime
         );
         repository.insert(testHabit);
 
@@ -100,7 +133,9 @@ public class HomeViewModel extends AndroidViewModel {
                 false,
                 1,
                 "1,2,3,4,5,6,7",  // Todos los días
-                7
+                7,
+                false,  // reminderEnabled
+                ""      // reminderTime
         );
         repository.insert(testHabit2);
 
@@ -112,26 +147,27 @@ public class HomeViewModel extends AndroidViewModel {
                 false,
                 2,
                 "6,7",  // Fines de semana
-                2
+                2,
+                false,  // reminderEnabled
+                ""      // reminderTime
         );
         repository.insert(testHabit3);
     }
 
     public void markHabitCompleted(Habit habit, boolean isCompleted) {
-        habit.setDone(isCompleted);
-        repository.update(habit);
-
-        long todayStart = HabitRepository.getTodayStart();
+        // NO modificamos el campo done del hábito, solo gestionamos el HabitCompletion
+        Calendar current = selectedDate.getValue();
+        long dateStart = current != null ? HabitRepository.getStartOfDay(current) : HabitRepository.getTodayStart();
 
         if (isCompleted) {
             HabitCompletion completion = new HabitCompletion(
                     habit.getId(),
                     habit.getArea(),
-                    todayStart
+                    dateStart
             );
             repository.insertCompletion(completion);
         } else {
-            repository.deleteCompletion(habit.getId(), todayStart);
+            repository.deleteCompletion(habit.getId(), dateStart);
         }
     }
 }

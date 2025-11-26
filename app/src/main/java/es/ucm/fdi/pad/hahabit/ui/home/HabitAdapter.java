@@ -16,6 +16,8 @@ import es.ucm.fdi.pad.hahabit.data.Habit;
 public class HabitAdapter extends ListAdapter<Habit, HabitAdapter.HabitViewHolder> {
 
     private OnHabitClickListener listener;
+    private boolean isToday = true; // Por defecto es hoy
+    private boolean isCompletedSection = false; // Si es la sección de completados
 
     public interface OnHabitClickListener {
         void onHabitClick(Habit habit);
@@ -24,6 +26,16 @@ public class HabitAdapter extends ListAdapter<Habit, HabitAdapter.HabitViewHolde
 
     public HabitAdapter() {
         super(DIFF_CALLBACK);
+    }
+
+    public HabitAdapter(boolean isCompletedSection) {
+        super(DIFF_CALLBACK);
+        this.isCompletedSection = isCompletedSection;
+    }
+
+    public void setIsToday(boolean isToday) {
+        this.isToday = isToday;
+        notifyDataSetChanged(); // Refrescar la lista cuando cambia
     }
 
     private static final DiffUtil.ItemCallback<Habit> DIFF_CALLBACK = new DiffUtil.ItemCallback<Habit>() {
@@ -35,7 +47,6 @@ public class HabitAdapter extends ListAdapter<Habit, HabitAdapter.HabitViewHolde
         @Override
         public boolean areContentsTheSame(@NonNull Habit oldItem, @NonNull Habit newItem) {
             return oldItem.getTitle().equals(newItem.getTitle()) &&
-                    oldItem.isDone() == newItem.isDone() &&
                     oldItem.getArea().equals(newItem.getArea());
         }
     };
@@ -55,10 +66,11 @@ public class HabitAdapter extends ListAdapter<Habit, HabitAdapter.HabitViewHolde
     @Override
     public void onBindViewHolder(@NonNull HabitViewHolder holder, int position) {
         Habit habit = getItem(position);
+        boolean isCompleted = isCompletedSection;
 
         holder.tvTitle.setText(habit.getTitle());
         holder.tvArea.setText(habit.getArea());
-        holder.checkBox.setChecked(habit.isDone());
+        holder.checkBox.setChecked(isCompleted);
 
         // Configurar la barra de progreso
         if (habit.getProgress() != null && habit.getProgress() > 0) {
@@ -81,12 +93,24 @@ public class HabitAdapter extends ListAdapter<Habit, HabitAdapter.HabitViewHolde
 
         // Click en el checkbox
         holder.checkBox.setOnCheckedChangeListener(null);
-        holder.checkBox.setChecked(habit.isDone());
-        holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (listener != null && buttonView.isPressed()) {
-                listener.onHabitChecked(habit, isChecked);
-            }
-        });
+        holder.checkBox.setChecked(isCompleted);
+
+        // Determinar si el checkbox debe estar habilitado
+        // Solo si es hoy Y no es la sección de completados
+        boolean shouldBeEnabled = isToday && !isCompletedSection;
+
+        holder.checkBox.setEnabled(shouldBeEnabled);
+        holder.checkBox.setAlpha(shouldBeEnabled ? 1.0f : 0.5f); // Hacer más transparente si está deshabilitado
+
+        if (shouldBeEnabled) {
+            holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (listener != null && buttonView.isPressed()) {
+                    listener.onHabitChecked(habit, isChecked);
+                }
+            });
+        } else {
+            holder.checkBox.setOnCheckedChangeListener(null);
+        }
     }
 
     private int getBackgroundForArea(String area) {

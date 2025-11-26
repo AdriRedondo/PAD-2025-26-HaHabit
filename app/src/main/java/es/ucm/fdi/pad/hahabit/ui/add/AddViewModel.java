@@ -26,6 +26,8 @@ public class AddViewModel extends AndroidViewModel {
     private final MutableLiveData<Integer> intervalDays;
 
     private final MutableLiveData<Long> time;
+    private final MutableLiveData<Boolean> reminderEnabled;
+    private final MutableLiveData<String> reminderTime;
 
     private final HabitRepository repository;
 
@@ -44,6 +46,8 @@ public class AddViewModel extends AndroidViewModel {
         intervalDays = new MutableLiveData<>(-1);
 
         time = new MutableLiveData<>();
+        reminderEnabled = new MutableLiveData<>(false);
+        reminderTime = new MutableLiveData<>("");
 
         repository = new HabitRepository(application);
     }
@@ -107,6 +111,22 @@ public class AddViewModel extends AndroidViewModel {
         time.setValue(calendar.getTimeInMillis());
     }
 
+    public void setReminderEnabled(boolean enabled) {
+        reminderEnabled.setValue(enabled);
+    }
+
+    public LiveData<Boolean> getReminderEnabled() {
+        return reminderEnabled;
+    }
+
+    public void setReminderTime(String time) {
+        reminderTime.setValue(time);
+    }
+
+    public LiveData<String> getReminderTime() {
+        return reminderTime;
+    }
+
     public Habit buildHabit() {
 
         Integer freq = typeFrequency.getValue();
@@ -128,7 +148,9 @@ public class AddViewModel extends AndroidViewModel {
                 false,                      // done
                 freq,
                 dias,                       // daysFrequency
-                interval
+                interval,
+                reminderEnabled.getValue() != null ? reminderEnabled.getValue() : false,
+                reminderTime.getValue()
         );
     }
 
@@ -140,6 +162,8 @@ public class AddViewModel extends AndroidViewModel {
         selectedWeekDays.setValue(new ArrayList<>());
         intervalDays.setValue(-1);
         time.setValue(null);
+        reminderEnabled.setValue(false);
+        reminderTime.setValue("");
     }
 
 

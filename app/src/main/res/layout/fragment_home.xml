@@ -14,7 +14,6 @@
         android:orientation="vertical"
         android:paddingTop="16dp">
 
-        <!-- Tarjeta del calendario semanal -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardWeekCalendar"
             android:layout_width="match_parent"
@@ -31,7 +30,6 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <!-- Cabecera con flechas y mes/año -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -97,29 +95,63 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Título sección hábitos -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:text="Mis Hábitos"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_primary" />
-
-        <!-- Lista de hábitos -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvHabits"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_marginTop="8dp"
-            android:clipToPadding="false"
-            android:paddingHorizontal="16dp"
-            android:paddingBottom="16dp" />
+            android:fillViewport="true">
 
-        <!-- Estado vacío -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvPendingTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Mis Hábitos"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvHabits"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingHorizontal="16dp" />
+
+                <TextView
+                    android:id="@+id/tvCompletedTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:text="Completados"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:visibility="gone" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvCompletedHabits"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingHorizontal="16dp"
+                    android:paddingBottom="16dp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+        </ScrollView>
+
         <LinearLayout
             android:id="@+id/emptyState"
             android:layout_width="match_parent"

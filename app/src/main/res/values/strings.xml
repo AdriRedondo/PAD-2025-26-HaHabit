@@ -34,4 +34,5 @@
     <string name="repetir_cada">Repetir cada:</string>
     <string name="ej_3">Ej: 3</string>
     <string name="dias">días</string>
+    <string name="enable_reminder">Activar recordatorio</string>
 </resources>
