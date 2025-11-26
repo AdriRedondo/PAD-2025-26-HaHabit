@@ -151,17 +151,26 @@ public class TrackerViewModel extends AndroidViewModel {
     }
 
     private int calculateStreak(List<DayActivity> activities) {
+        if (activities == null || activities.isEmpty()) {
+            return 0;
+        }
+
         int streak = 0;
+        boolean isToday = true;
 
         // Recorrer desde el día más reciente hacia atrás
         for (int i = activities.size() - 1; i >= 0; i--) {
             if (activities.get(i).getCompletedHabits() > 0) {
                 streak++;
+                isToday = false;
             } else {
-                // Si encontramos un día sin actividad, paramos (excepto si es hoy)
-                if (i < activities.size() - 1) {
+                // Si encontramos un día sin actividad:
+                // - Si es hoy (primer día), seguimos buscando
+                // - Si no es hoy, rompemos la racha
+                if (!isToday) {
                     break;
                 }
+                isToday = false;
             }
         }
 

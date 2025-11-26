@@ -1,7 +1,6 @@
 package es.ucm.fdi.pad.hahabit.network;
 
-import android.util.Log;
-
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -10,17 +9,14 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import es.ucm.fdi.pad.hahabit.BuildConfig;
 /**
- * Cliente muy simple para PaperQuotes.
- * Llama al endpoint "Quote of the day" en español y devuelve la cita por callback.
+ * Cliente para obtener quotes motivacionales usando ZenQuotes API.
+ * https://zenquotes.io/
  */
-public class PaperQuotesClient {
+public class ZenQuotesClient {
 
     private static final String TAG = "PaperQuotesClient";
-    // Endpoint de Quote of the Day en español
-    private static final String API_URL =
-            "https://api.paperquotes.com/apiv1/quotes/?lang=es&tags=motivational&random=random";
+    private static final String API_URL = "https://zenquotes.io/api/random";
 
 
     /**
@@ -44,18 +40,8 @@ public class PaperQuotesClient {
                 connection.setConnectTimeout(10_000);
                 connection.setReadTimeout(10_000);
 
-                // Cabecera con el token
-                String token = BuildConfig.PAPERQUOTES_API_TOKEN;
-                connection.setRequestProperty(
-                        "Authorization",
-                        "Token " + token
-                );
-                connection.setRequestProperty(
-                        "Content-Type",
-                        "application/json"
-                );
-
                 int responseCode = connection.getResponseCode();
+
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     BufferedReader reader = new BufferedReader(
                             new InputStreamReader(connection.getInputStream())
@@ -67,23 +53,38 @@ public class PaperQuotesClient {
                     }
                     reader.close();
 
-                    // Parseamos el JSON
-                    JSONObject json = new JSONObject(sb.toString());
-                    String quote = json.optString("quote");
-                    String author = json.optString("author", "");
+                    String responseBody = sb.toString();
+
+                    // ZenQuotes devuelve un array con un objeto: [{"q":"quote","a":"author"}]
+                    JSONArray jsonArray = new JSONArray(responseBody);
+
+                    if (jsonArray.length() == 0) {
+                        if (callback != null) {
+                            callback.onError(new IOException("No quotes available"));
+                        }
+                        return;
+                    }
+
+                    JSONObject quoteObj = jsonArray.getJSONObject(0);
+                    String quote = quoteObj.optString("q", "");
+                    String author = quoteObj.optString("a", "");
+
+                    if (quote.isEmpty()) {
+                        if (callback != null) {
+                            callback.onError(new IOException("Empty quote received"));
+                        }
+                        return;
+                    }
 
                     if (callback != null) {
                         callback.onSuccess(quote, author);
                     }
                 } else {
                     if (callback != null) {
-                        callback.onError(
-                                new IOException("HTTP error code: " + responseCode)
-                        );
+                        callback.onError(new IOException("HTTP error: " + responseCode));
                     }
                 }
             } catch (Exception e) {
-                Log.e(TAG, "Error al obtener cita de PaperQuotes", e);
                 if (callback != null) {
                     callback.onError(e);
                 }

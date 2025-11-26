@@ -1,5 +1,7 @@
 package es.ucm.fdi.pad.hahabit.ui.tracker;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,20 +19,23 @@ import java.util.List;
 
 import es.ucm.fdi.pad.hahabit.data.HabitArea;
 import es.ucm.fdi.pad.hahabit.databinding.FragmentTrackerBinding;
-import es.ucm.fdi.pad.hahabit.network.PaperQuotesClient;
+import es.ucm.fdi.pad.hahabit.network.ZenQuotesClient;
 
 public class TrackerFragment extends Fragment {
     private static final String TAG = "TrackerFragment";
-    private static final int STREAK_THRESHOLD_FOR_QUOTE = 1;
+    private static final int STREAK_THRESHOLD_FOR_QUOTE = 5;
+    private static final String PREFS_NAME = "TrackerPrefs";
+    private static final String KEY_LAST_CELEBRATED_STREAK = "last_celebrated_streak_";
 
     private FragmentTrackerBinding binding;
     private AreaTrackerAdapter adapter;
+    private TrackerViewModel trackerViewModel;
 
     private boolean motivationalDialogShown = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        TrackerViewModel trackerViewModel =
+        trackerViewModel =
                 new ViewModelProvider(this).get(TrackerViewModel.class);
 
         binding = FragmentTrackerBinding.inflate(inflater, container, false);
@@ -63,40 +68,51 @@ public class TrackerFragment extends Fragment {
     }
 
     private void checkAndShowMotivationalQuote(List<HabitArea> areas) {
+        Log.d(TAG, "checkAndShowMotivationalQuote - Areas: " + (areas == null ? "null" : areas.size()));
+
         if (motivationalDialogShown || areas == null || areas.isEmpty()) {
+            Log.d(TAG, "Saliendo - dialogShown:" + motivationalDialogShown + " isEmpty:" + (areas == null || areas.isEmpty()));
             return;
         }
 
+        SharedPreferences prefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         HabitArea bestArea = null;
         int maxStreak = 0;
 
-        // Buscamos el área con la racha más larga
         for (HabitArea area : areas) {
             int streak = area.getCurrentStreak();
-            if (streak > maxStreak) {
-                maxStreak = streak;
-                bestArea = area;
+            Log.d(TAG, "Área: " + area.getAreaName() + " Racha: " + streak);
+
+            if (streak >= STREAK_THRESHOLD_FOR_QUOTE && streak > maxStreak) {
+                String key = KEY_LAST_CELEBRATED_STREAK + area.getAreaName();
+                int lastCelebratedStreak = prefs.getInt(key, 0);
+
+                if (streak > lastCelebratedStreak) {
+                    maxStreak = streak;
+                    bestArea = area;
+                }
             }
         }
 
-        // Si la mejor racha supera el umbral, pedimos una cita a PaperQuotes
-        if (bestArea != null && maxStreak >= STREAK_THRESHOLD_FOR_QUOTE) {
+        // mostrar el diálogo si encontramos una racha digna de celebración
+        if (bestArea != null) {
             motivationalDialogShown = true;
+
+            String key = KEY_LAST_CELEBRATED_STREAK + bestArea.getAreaName();
+            prefs.edit().putInt(key, maxStreak).apply();
+
             fetchQuoteAndShowDialog(bestArea.getAreaName(), maxStreak);
         }
     }
 
     private void fetchQuoteAndShowDialog(String areaName, int streak) {
-        Log.d(TAG, "Llamando a PaperQuotesClient.fetchQuoteOfTheDay...");
-
-        PaperQuotesClient.fetchQuoteOfTheDay(new PaperQuotesClient.QuoteCallback() {
+        ZenQuotesClient.fetchQuoteOfTheDay(new ZenQuotesClient.QuoteCallback() {
             @Override
             public void onSuccess(String quote, String author) {
-                Log.d(TAG, "Quote recibida: \"" + quote + "\" de " + author);
                 if (!isAdded()) {
-                    Log.d(TAG, "Fragment no añadido, no se muestra diálogo");
-                    return; // el fragment ya no está en pantalla
+                    return;
                 }
+
                 requireActivity().runOnUiThread(() ->
                         showMotivationalDialog(areaName, streak, quote, author)
                 );
@@ -104,8 +120,15 @@ public class TrackerFragment extends Fragment {
 
             @Override
             public void onError(Exception e) {
-                // Si quieres, aquí puedes mostrar un mensaje fijo
-                // o simplemente no hacer nada para fallar en silencio.
+                if (!isAdded()) {
+                    return;
+                }
+
+                // Mostrar diálogo con mensaje predeterminado si falla la API
+                requireActivity().runOnUiThread(() -> {
+                    String fallbackQuote = "Success is the sum of small efforts repeated day in and day out.";
+                    showMotivationalDialog(areaName, streak, fallbackQuote, "Robert Collier");
+                });
             }
         });
     }
@@ -143,5 +166,18 @@ public class TrackerFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        motivationalDialogShown = false;
+
+        if (trackerViewModel != null) {
+            List<HabitArea> currentAreas = trackerViewModel.getHabitAreas().getValue();
+            if (currentAreas != null) {
+                checkAndShowMotivationalQuote(currentAreas);
+            }
+        }
     }
 }
