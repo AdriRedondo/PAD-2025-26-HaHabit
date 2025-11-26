@@ -57,7 +57,7 @@
             app:layout_constraintTop_toBottomOf="@+id/titleText" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/CookingButton"
+            android:id="@+id/cookingButton"
             android:layout_width="0dp"
             android:layout_height="70dp"
             android:layout_marginTop="12dp"
@@ -97,7 +97,7 @@
             app:iconSize="32dp"
             app:iconTint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/CookingButton"
+            app:layout_constraintStart_toEndOf="@+id/cookingButton"
             app:layout_constraintTop_toBottomOf="@+id/areaTextView" />
 
         <com.google.android.material.button.MaterialButton
@@ -120,7 +120,7 @@
             app:iconTint="#FFFFFF"
             app:layout_constraintEnd_toStartOf="@+id/othersButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/CookingButton" />
+            app:layout_constraintTop_toBottomOf="@+id/cookingButton" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/othersButton"
@@ -142,7 +142,7 @@
             app:iconTint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/studyButton"
-            app:layout_constraintTop_toBottomOf="@+id/CookingButton" />
+            app:layout_constraintTop_toBottomOf="@+id/cookingButton" />
 
         <TextView
             android:id="@+id/typeTextView"
@@ -308,7 +308,8 @@
                 android:text="@string/weekly"
                 android:fontFamily="sans-serif"
                 android:textColor="#333333"
-                android:buttonTint="#00A6FB" />
+                android:buttonTint="#00A6FB"
+                android:checked="true" />
 
             <RadioButton
                 android:id="@+id/daysButton"
@@ -320,6 +321,184 @@
                 android:textColor="#333333"
                 android:buttonTint="#00A6FB" />
         </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/layoutDiasSemana"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frequencyGroup">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Selecciona los días:"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#333333"
+                android:fontFamily="sans-serif-medium" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="7">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnLunes"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="L"
+                    android:textSize="12sp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    app:cornerRadius="24dp"
+                    app:backgroundTint="#E0E0E0"
+                    android:textColor="#333333" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMartes"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="M"
+                    android:textSize="12sp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    app:cornerRadius="24dp"
+                    app:backgroundTint="#E0E0E0"
+                    android:textColor="#333333" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMiercoles"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="X"
+                    android:textSize="12sp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    app:cornerRadius="24dp"
+                    app:backgroundTint="#E0E0E0"
+                    android:textColor="#333333" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnJueves"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="J"
+                    android:textSize="12sp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    app:cornerRadius="24dp"
+                    app:backgroundTint="#E0E0E0"
+                    android:textColor="#333333" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnViernes"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="V"
+                    android:textSize="12sp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    app:cornerRadius="24dp"
+                    app:backgroundTint="#E0E0E0"
+                    android:textColor="#333333" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSabado"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="S"
+                    android:textSize="12sp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    app:cornerRadius="24dp"
+                    app:backgroundTint="#E0E0E0"
+                    android:textColor="#333333" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDomingo"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="D"
+                    android:textSize="12sp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    app:cornerRadius="24dp"
+                    app:backgroundTint="#E0E0E0"
+                    android:textColor="#333333" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Vista para intervalo de días -->
+        <LinearLayout
+            android:id="@+id/layoutIntervalo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frequencyGroup">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Repetir cada:"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#333333"
+                android:fontFamily="sans-serif-medium" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editTextDias"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Ej: 3"
+                    android:inputType="number"
+                    android:background="@drawable/edittext_background"
+                    android:textColorHint="#999999"
+                    android:textColor="#333333"
+                    android:fontFamily="sans-serif" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text=" días"
+                    android:textSize="16sp"
+                    android:textColor="#333333"
+                    android:fontFamily="sans-serif" />
+            </LinearLayout>
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/timeTextView"
@@ -333,7 +512,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/frequencyGroup" />
+            app:layout_constraintTop_toBottomOf="@+id/layoutDiasSemana" />
 
         <EditText
             android:id="@+id/timeText"
@@ -355,7 +534,7 @@
             app:layout_constraintTop_toBottomOf="@+id/timeTextView" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/textAdd"
+            android:id="@+id/addButton"
             android:layout_width="0dp"
             android:layout_height="56dp"
             android:layout_marginTop="32dp"
