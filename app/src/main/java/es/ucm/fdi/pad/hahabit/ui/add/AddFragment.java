@@ -40,6 +40,10 @@ public class AddFragment extends Fragment {
         inicializarBotonesSemanales();
         configurarListeners();
 
+        //esto de aqui es para que el boton del radioGroup cuente como marcado al iniciar
+        binding.frequencyGroup.check(R.id.weeklyButton);
+        addViewModel.setTypeFrequency(0);
+
         return root;
     }
 
@@ -52,19 +56,66 @@ public class AddFragment extends Fragment {
         weekDayBtns.put(binding.btnSabado, 6);
         weekDayBtns.put(binding.btnDomingo, 7);
     }
+    private void resetUI() { //clase para resetear la vista y que se borren los valores al crear un habito
+        // Título
+        binding.titleText.setText("");
 
+        // Área (colores por defecto)
+        binding.cookingButton.setBackgroundTintList(ColorStateList.valueOf(0xFF78BC61));
+        binding.sportsButton.setBackgroundTintList(ColorStateList.valueOf(0xFFFF686B));
+        binding.studyButton.setBackgroundTintList(ColorStateList.valueOf(0xFF00A6FB));
+        binding.othersButton.setBackgroundTintList(ColorStateList.valueOf(0xFFF8BD4F));
+
+        // Tipo (reset)
+        binding.standarButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white)));
+        binding.standarButton.setIconTint(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.gris_oscuro)));
+        binding.listButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white)));
+        binding.listButton.setIconTint(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.gris_oscuro)));
+        binding.timerButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white)));
+        binding.timerButton.setIconTint(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.gris_oscuro)));
+
+        // Frecuencia (por defecto semanal)
+        binding.frequencyGroup.check(R.id.weeklyButton);
+
+        // Días de la semana
+        for (MaterialButton btn : weekDayBtns.keySet()) {
+            btn.setBackgroundTintList(ColorStateList.valueOf(
+                    ContextCompat.getColor(requireContext(), android.R.color.darker_gray)
+            ));
+        }
+
+        // Intervalo
+        binding.editTextDias.setText("");
+
+        // (Si usabas hora, aquí también se reinicia)
+        // binding.timeText.setText("Seleccionar hora");
+    }
     private void configurarListeners() {
 
         // Area
-        binding.cookingButton.setOnClickListener(v -> addViewModel.setArea("Cocinar"));
-        binding.sportsButton.setOnClickListener(v -> addViewModel.setArea("Deporte"));
-        binding.studyButton.setOnClickListener(v -> addViewModel.setArea("Estudio"));
-        binding.othersButton.setOnClickListener(v -> addViewModel.setArea("Otros"));
+        binding.cookingButton.setOnClickListener(v ->
+                {addViewModel.setArea("Cocinar");
+                    marcarBotonArea(binding.cookingButton, ContextCompat.getColor(requireContext(), R.color.verde_claro));});
+        binding.sportsButton.setOnClickListener(v ->
+                {addViewModel.setArea("Deporte");
+                    marcarBotonArea(binding.sportsButton, ContextCompat.getColor(requireContext(), R.color.rojo_claro));});
+        binding.studyButton.setOnClickListener(v ->
+                {addViewModel.setArea("Estudio");
+                    marcarBotonArea(binding.studyButton, ContextCompat.getColor(requireContext(), R.color.azul_claro));});
+        binding.othersButton.setOnClickListener(v ->
+                {addViewModel.setArea("Otros");
+                    marcarBotonArea(binding.othersButton, ContextCompat.getColor(requireContext(), R.color.amarillo_anaranjado));});
 
         // Tipo
-        binding.standarButton.setOnClickListener(v -> addViewModel.setType("Estandar"));
-        binding.listButton.setOnClickListener(v -> addViewModel.setType("Lista"));
-        binding.timerButton.setOnClickListener(v -> addViewModel.setType("Temporizador"));
+        binding.standarButton.setOnClickListener(v ->
+                {addViewModel.setType("Estandar");
+                    marcarBotonTipo(binding.standarButton);});
+        binding.listButton.setOnClickListener(v ->
+                {addViewModel.setType("Lista");
+                    marcarBotonTipo(binding.listButton);});
+        binding.timerButton.setOnClickListener(v ->
+                {addViewModel.setType("Temporizador");
+                    marcarBotonTipo(binding.timerButton);});
 
         // Frecuncia semanal o intervalo
         binding.frequencyGroup.setOnCheckedChangeListener((group, checkedId) -> {
@@ -88,7 +139,7 @@ public class AddFragment extends Fragment {
                     binding.layoutIntervalo.setVisibility(View.VISIBLE);
 
                     // Se guarda el tipo de fecuencia
-                    addViewModel.setTypeFrequency(0);
+                    addViewModel.setTypeFrequency(1);
                 }
         });
 
@@ -96,6 +147,7 @@ public class AddFragment extends Fragment {
         for (MaterialButton btn : weekDayBtns.keySet()) {
             btn.setOnClickListener(v -> toggleBotonDia(btn));
         }
+
 
         // Boton de añadir habito
         binding.addButton.setOnClickListener(v -> {
@@ -108,14 +160,52 @@ public class AddFragment extends Fragment {
                 System.out.println("Hábito creado: " + habit.getTitle() + " - " + habit.getDaysFrequency());
                 addViewModel.insertHabit(habit);
 
-
-
                 Toast.makeText(requireContext(), "Hábito creado correctamente", Toast.LENGTH_SHORT).show();
+
+                addViewModel.reset();
+                resetUI();
             }
         });
     }
 
     //  Seleccionar/deseleccionar dia de la semana y avisar al ViewModel
+
+    // Metodo para marcar el boton de area seleccionado
+    private void marcarBotonArea(MaterialButton seleccionado, int colorOriginal) {
+
+        binding.cookingButton.setBackgroundTintList(ColorStateList.valueOf(0xFF78BC61));
+        binding.sportsButton.setBackgroundTintList(ColorStateList.valueOf(0xFFFF686B));
+        binding.studyButton.setBackgroundTintList(ColorStateList.valueOf(0xFF00A6FB));
+        binding.othersButton.setBackgroundTintList(ColorStateList.valueOf(0xFFF8BD4F));
+
+        // Oscurecer el seleccionado
+        seleccionado.setBackgroundTintList(ColorStateList.valueOf(oscurecerColor(colorOriginal)));
+    }
+
+    // Marcar botón de tipo seleccionado
+    private void marcarBotonTipo(MaterialButton seleccionado) {
+
+        binding.standarButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white)));
+        binding.standarButton.setIconTint(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.gris_oscuro)));
+        binding.listButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white)));
+        binding.listButton.setIconTint(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.gris_oscuro)));
+        binding.timerButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white)));
+        binding.timerButton.setIconTint(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.gris_oscuro)));
+
+
+        seleccionado.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.azul)));
+        seleccionado.setIconTint(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white)));
+    }
+
+    // Metodo para oscurecer el color de los botones
+    private int oscurecerColor(int color) {
+        float factor = 0.5f;
+        int a = (color >> 24) & 0xFF;
+        int r = (int) (((color >> 16) & 0xFF) * factor);
+        int g = (int) (((color >> 8) & 0xFF) * factor);
+        int b = (int) ((color & 0xFF) * factor);
+        return (a << 24) | (r << 16) | (g << 8) | b;
+    }
     private void toggleBotonDia(MaterialButton btn) {
 
         // Se obtine a que día pertenece el boton
@@ -130,11 +220,11 @@ public class AddFragment extends Fragment {
         // Cambia de color dependiendo de si está seleccionado
         if (seleccionado) {
             btn.setBackgroundTintList(ColorStateList.valueOf(
-                    ContextCompat.getColor(requireContext(), android.R.color.holo_blue_light)
+                    ContextCompat.getColor(requireContext(), R.color.azul)
             ));
         } else {
             btn.setBackgroundTintList(ColorStateList.valueOf(
-                    ContextCompat.getColor(requireContext(), android.R.color.darker_gray)
+                    ContextCompat.getColor(requireContext(), R.color.gris_muy_claro)
             ));
         }
     }

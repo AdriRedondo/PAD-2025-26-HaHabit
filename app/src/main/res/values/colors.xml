@@ -26,4 +26,13 @@
     <color name="progress_background">#E2E8F0</color>
     <color name="success">#22C55E</color>
     <color name="error">#EF4444</color>
+    <color name="gris_oscuro">#333333</color>
+    <color name="blanco_base">#FAFAFA</color>
+    <color name="gris_muy_claro">#999999</color>
+    <color name="verde_claro">#78BC61</color>
+    <color name="rojo_claro">#FF686B</color>
+    <color name="azul_claro">#00A6FB</color>
+    <color name="amarillo_anaranjado">#F8BD4F</color>
+    <color name="gris">#666666</color>
+    <color name="azul">#00A6FB</color>
 </resources>
