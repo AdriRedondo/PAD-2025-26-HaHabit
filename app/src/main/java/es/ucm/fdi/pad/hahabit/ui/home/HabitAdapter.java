@@ -117,7 +117,7 @@ public class HabitAdapter extends ListAdapter<Habit, HabitAdapter.HabitViewHolde
         if (area == null) return R.drawable.bg_habit_otros;
 
         switch (area.toLowerCase()) {
-            case "cocina":
+            case "cocinar":
                 return R.drawable.bg_habit_cocina;
             case "deporte":
             case "salud":

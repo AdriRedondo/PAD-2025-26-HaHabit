@@ -121,7 +121,8 @@ public class HomeViewModel extends AndroidViewModel {
                 "1,2,3,4,5",  // Lunes a viernes
                 5,
                 false,  // reminderEnabled
-                ""      // reminderTime
+                "",      // reminderTime
+                System.currentTimeMillis()
         );
         repository.insert(testHabit);
 
@@ -135,7 +136,8 @@ public class HomeViewModel extends AndroidViewModel {
                 "1,2,3,4,5,6,7",  // Todos los días
                 7,
                 false,  // reminderEnabled
-                ""      // reminderTime
+                "",      // reminderTime
+                System.currentTimeMillis()
         );
         repository.insert(testHabit2);
 
@@ -149,7 +151,8 @@ public class HomeViewModel extends AndroidViewModel {
                 "6,7",  // Fines de semana
                 2,
                 false,  // reminderEnabled
-                ""      // reminderTime
+                "",      // reminderTime
+                System.currentTimeMillis()
         );
         repository.insert(testHabit3);
     }

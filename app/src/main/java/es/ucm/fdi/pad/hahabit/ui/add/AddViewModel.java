@@ -136,10 +136,11 @@ public class AddViewModel extends AndroidViewModel {
         String dias = "";
         if (freq != null && freq == 0)    // 0 = semanal
             dias = selectedWeekDays.getValue().stream().map(String::valueOf).collect(Collectors.joining(","));
-        // Si es intervalo de dias, limpio los dias semanales
+        //Si es intervalo de dias, limpio los dias semanales
         if (freq != null && freq == 1) {   // 1 = intervalo
             dias = "";
         }
+
         return new Habit(
                 title.getValue(),
                 area.getValue(),
@@ -150,7 +151,8 @@ public class AddViewModel extends AndroidViewModel {
                 dias,                       // daysFrequency
                 interval,
                 reminderEnabled.getValue() != null ? reminderEnabled.getValue() : false,
-                reminderTime.getValue()
+                reminderTime.getValue(),
+                System.currentTimeMillis()
         );
     }
 

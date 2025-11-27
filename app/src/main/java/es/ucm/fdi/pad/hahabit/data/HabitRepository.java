@@ -3,7 +3,9 @@ package es.ucm.fdi.pad.hahabit.data;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -69,11 +71,83 @@ public class HabitRepository {
     }
 
     public LiveData<List<Habit>> getPendingHabitsByDay(int dayOfWeek, long date) {
-        return habitDao.getPendingHabitsByDay(String.valueOf(dayOfWeek), date);
+        //return habitDao.getPendingHabitsByDay(String.valueOf(dayOfWeek), date);
+        LiveData<List<Habit>> source = habitDao.getPendingHabitsByDay(String.valueOf(dayOfWeek), date);
+
+        MediatorLiveData<List<Habit>> result = new MediatorLiveData<>();
+        result.addSource(source, habits -> {
+            if (habits != null) {
+                result.setValue(filterHabitsByInterval(habits, date));
+            }
+        });
+
+        return result;
     }
 
     public LiveData<List<Habit>> getCompletedHabitsByDay(int dayOfWeek, long date) {
-        return habitDao.getCompletedHabitsByDay(String.valueOf(dayOfWeek), date);
+        //return habitDao.getCompletedHabitsByDay(String.valueOf(dayOfWeek), date);
+        LiveData<List<Habit>> source = habitDao.getCompletedHabitsByDay(String.valueOf(dayOfWeek), date);
+
+        MediatorLiveData<List<Habit>> result = new MediatorLiveData<>();
+        result.addSource(source, habits -> {
+            if (habits != null) {
+                result.setValue(filterHabitsByInterval(habits, date));
+            }
+        });
+
+        return result;
+    }
+
+    // Método para filtrar hábitos con intervalo
+    private List<Habit> filterHabitsByInterval(List<Habit> habits, long selectedDate) {
+        List<Habit> filtered = new ArrayList<>();
+
+        for (Habit habit : habits) {
+            // Si es semanal (typeFrequency = 0), siempre incluir
+            if (habit.getTypeFrequency() == 0) {
+                filtered.add(habit);
+            }
+            // Si es por intervalo (typeFrequency = 1), verificar si debe mostrarse hoy
+            else if (habit.getTypeFrequency() == 1) {
+                if (shouldShowHabitOnDate(habit, selectedDate)) {
+                    filtered.add(habit);
+                }
+            }
+        }
+
+        return filtered;
+    }
+
+    // Verifico si un habito con intervalo debe mostrarse en una fecha específica
+    private boolean shouldShowHabitOnDate(Habit habit, long selectedDate) {
+        Long startDate = habit.getStartDate();
+        Integer interval = habit.getFrequency();
+
+        if (startDate == null || interval == null || interval <= 0) {
+            return false;
+        }
+
+        // Normalizo ambas fechas a medianoche
+        long startMillis = getStartOfDayFromMillis(startDate);
+        long selectedMillis = getStartOfDayFromMillis(selectedDate);
+
+        // Calcular días transcurridos desde el inicio
+        long diffMillis = selectedMillis - startMillis;
+        long daysPassed = diffMillis / (24 * 60 * 60 * 1000);
+
+        // Si es múltiplo del intervalo (o es el día de inicio), mostrar
+        return daysPassed >= 0 && daysPassed % interval == 0;
+    }
+
+    //Normalizo una fecha a medianoche
+    private long getStartOfDayFromMillis(long timeInMillis) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(timeInMillis);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTimeInMillis();
     }
     public LiveData<Habit> getHabitById(int id) {
         return habitDao.getHabitById(id);

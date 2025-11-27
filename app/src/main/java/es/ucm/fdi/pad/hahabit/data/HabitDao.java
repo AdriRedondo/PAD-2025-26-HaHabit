@@ -34,17 +34,22 @@ public interface HabitDao {
     @Query("SELECT * FROM habitos WHERE daysFrequency LIKE '%' || :dayOfWeek || '%' ORDER BY id ASC")
     LiveData<List<Habit>> getHabitsByDay(String dayOfWeek);
 
-    @Query("SELECT h.* FROM habitos h " +
-           "WHERE h.daysFrequency LIKE '%' || :dayOfWeek || '%' " +
+    @Query("SELECT h.* FROM habitos h " + "WHERE (" +
+            "  (h.typeFrequency = 0 AND h.daysFrequency LIKE '%' || :dayOfWeek || '%') " +
+            "  OR h.typeFrequency = 1" +
+            ") " +
            "AND NOT EXISTS (SELECT 1 FROM habit_completions hc " +
            "WHERE hc.habitId = h.id AND hc.completionDate = :date) " +
            "ORDER BY h.id ASC")
     LiveData<List<Habit>> getPendingHabitsByDay(String dayOfWeek, long date);
 
     @Query("SELECT h.* FROM habitos h " +
-           "INNER JOIN habit_completions hc ON h.id = hc.habitId " +
-           "WHERE h.daysFrequency LIKE '%' || :dayOfWeek || '%' " +
-           "AND hc.completionDate = :date " +
-           "ORDER BY h.id ASC")
+            "INNER JOIN habit_completions hc ON h.id = hc.habitId " +
+            "WHERE (" +
+            "  (h.typeFrequency = 0 AND h.daysFrequency LIKE '%' || :dayOfWeek || '%') " +
+            "  OR h.typeFrequency = 1" +
+            ") " +
+            "AND hc.completionDate = :date " +
+            "ORDER BY h.id ASC")
     LiveData<List<Habit>> getCompletedHabitsByDay(String dayOfWeek, long date);
 }
