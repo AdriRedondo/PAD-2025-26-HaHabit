@@ -141,21 +141,21 @@ public class AddFragment extends Fragment {
 
         // Tipo
         binding.standarButton.setOnClickListener(v -> {
-            addViewModel.setType("Estandar");
+            addViewModel.setType("normal");
             marcarBotonTipo(binding.standarButton);
             // Ocultar el layout del temporizador
             binding.layoutTimer.setVisibility(View.GONE);
         });
 
         binding.listButton.setOnClickListener(v -> {
-            addViewModel.setType("Lista");
+            addViewModel.setType("list");
             marcarBotonTipo(binding.listButton);
             // Ocultar el layout del temporizador
             binding.layoutTimer.setVisibility(View.GONE);
         });
 
         binding.timerButton.setOnClickListener(v -> {
-            addViewModel.setType("Temporizador");
+            addViewModel.setType("timer");
             marcarBotonTipo(binding.timerButton);
             // Mostrar el layout del temporizador
             binding.layoutTimer.setVisibility(View.VISIBLE);
@@ -379,7 +379,7 @@ public class AddFragment extends Fragment {
         }
 
         // Si es tipo temporizador, validar que se haya configurado el tiempo
-        if (type.equals("Temporizador")) {
+        if (type.equals("timer")) {
             Integer hours = addViewModel.getTimerHours().getValue();
             Integer minutes = addViewModel.getTimerMinutes().getValue();
             Integer seconds = addViewModel.getTimerSeconds().getValue();

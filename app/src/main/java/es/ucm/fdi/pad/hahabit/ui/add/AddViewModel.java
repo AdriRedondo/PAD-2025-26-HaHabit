@@ -171,7 +171,7 @@ public class AddViewModel extends AndroidViewModel {
         return new Habit(
                 title.getValue(),
                 area.getValue(),
-                "normal",           // type - por defecto "normal" (puede ser "normal", "list", "timer")
+                type.getValue(),           // type - por defecto "normal" (puede ser "normal", "list", "timer")
                 0.0,                // progress
                 false,              // done
                 freq,
