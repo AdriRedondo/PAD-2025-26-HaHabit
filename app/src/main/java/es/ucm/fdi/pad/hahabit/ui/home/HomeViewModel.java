@@ -105,8 +105,8 @@ public class HomeViewModel extends AndroidViewModel {
         repository.update(habit);
     }
 
-    public void delete(Habit habit) {
-        repository.delete(habit);
+    public void logicalDelete(Habit habit) {
+        repository.logicalDelete(habit);
     }
 
     // Método para probar - insertar hábitos de prueba

@@ -61,6 +61,16 @@
 
         </LinearLayout>
 
+        <ImageButton
+            android:id="@+id/btnDeleteHabit"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/trash"
+            android:contentDescription="@drawable/trash"/>
+
+
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

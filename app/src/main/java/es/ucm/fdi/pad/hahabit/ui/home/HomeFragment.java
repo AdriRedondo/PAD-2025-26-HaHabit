@@ -148,6 +148,11 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
             public void onHabitChecked(Habit habit, boolean isChecked) {
                 viewModel.markHabitCompleted(habit, isChecked);
             }
+
+            @Override
+            public void onHabitDelete(Habit habit) {
+                viewModel.logicalDelete(habit);
+            }
         });
 
         rvHabits.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -166,6 +171,11 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
                 // Este listener nunca debería llamarse porque los checkboxes están deshabilitados
                 // pero por si acaso:
                 viewModel.markHabitCompleted(habit, isChecked);
+            }
+
+            @Override
+            public void onHabitDelete(Habit habit) {
+                viewModel.logicalDelete(habit);
             }
         });
 

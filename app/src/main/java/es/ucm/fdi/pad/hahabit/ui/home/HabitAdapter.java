@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import es.ucm.fdi.pad.hahabit.R;
 import es.ucm.fdi.pad.hahabit.data.Habit;
+import android.widget.ImageButton;
 
 public class HabitAdapter extends ListAdapter<Habit, HabitAdapter.HabitViewHolder> {
 
@@ -22,6 +23,7 @@ public class HabitAdapter extends ListAdapter<Habit, HabitAdapter.HabitViewHolde
     public interface OnHabitClickListener {
         void onHabitClick(Habit habit);
         void onHabitChecked(Habit habit, boolean isChecked);
+        void onHabitDelete(Habit habit);
     }
 
     public HabitAdapter() {
@@ -91,6 +93,13 @@ public class HabitAdapter extends ListAdapter<Habit, HabitAdapter.HabitViewHolde
             }
         });
 
+        // Botón de eliminar
+        holder.btnDelete.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onHabitDelete(habit);
+            }
+        });
+
         // Click en el checkbox
         holder.checkBox.setOnCheckedChangeListener(null);
         holder.checkBox.setChecked(isCompleted);
@@ -134,6 +143,7 @@ public class HabitAdapter extends ListAdapter<Habit, HabitAdapter.HabitViewHolde
         CheckBox checkBox;
         ProgressBar progressBar;
         View cardContainer;
+        ImageButton btnDelete;
 
         HabitViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -142,6 +152,7 @@ public class HabitAdapter extends ListAdapter<Habit, HabitAdapter.HabitViewHolde
             checkBox = itemView.findViewById(R.id.checkboxHabit);
             progressBar = itemView.findViewById(R.id.progressBarHabit);
             cardContainer = itemView.findViewById(R.id.habitCardContainer);
+            btnDelete = itemView.findViewById(R.id.btnDeleteHabit);
         }
     }
 }

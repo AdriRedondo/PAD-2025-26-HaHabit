@@ -22,6 +22,9 @@ public class Habit {
 
     private Long startDate;
 
+    private boolean isDeleted;
+
+
     // Constructor
     public Habit(String title, String area, String type, Double progress, boolean done,
                  int typeFrequency, String daysFrequency, Integer frequency
@@ -37,6 +40,8 @@ public class Habit {
         this.reminderEnabled = reminderEnabled;
         this.reminderTime = reminderTime;
         this.startDate = startDate;
+        this.isDeleted = false;
+
     }
 
     // Getters y Setters
@@ -75,4 +80,13 @@ public class Habit {
 
     public Long getStartDate() { return startDate; }
     public void setStartDate(Long startDate) { this.startDate = startDate; }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
 }
