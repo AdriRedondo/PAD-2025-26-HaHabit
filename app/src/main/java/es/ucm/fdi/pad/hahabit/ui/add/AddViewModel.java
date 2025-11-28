@@ -168,10 +168,10 @@ public class AddViewModel extends AndroidViewModel {
             dias = "";
         }
 
-        return new Habit(
+        Habit habit = new Habit(
                 title.getValue(),
                 area.getValue(),
-                type.getValue(),           // type - por defecto "normal" (puede ser "normal", "list", "timer")
+                type.getValue(),
                 0.0,                // progress
                 false,              // done
                 freq,
@@ -184,6 +184,24 @@ public class AddViewModel extends AndroidViewModel {
                 timerMinutes.getValue() != null ? timerMinutes.getValue() : 0,
                 timerSeconds.getValue() != null ? timerSeconds.getValue() : 0
         );
+
+        // Si es un hábito de tipo timer, configurar los campos adicionales del temporizador
+        if ("timer".equals(type.getValue())) {
+            // Calcular el tiempo objetivo en milisegundos
+            long hours = timerHours.getValue() != null ? timerHours.getValue() : 0;
+            long minutes = timerMinutes.getValue() != null ? timerMinutes.getValue() : 0;
+            long seconds = timerSeconds.getValue() != null ? timerSeconds.getValue() : 0;
+            long timerTargetMs = (hours * 3600 + minutes * 60 + seconds) * 1000;
+
+            habit.setTimerTarget(timerTargetMs);
+            habit.setTimerElapsed(0L);
+            habit.setTimerRunning(false);
+            habit.setTimerStartTime(null);
+
+            android.util.Log.d("AddViewModel", "Timer configurado: " + hours + "h " + minutes + "m " + seconds + "s = " + timerTargetMs + "ms");
+        }
+
+        return habit;
     }
 
     public void reset() { //para resetear la ventana despues de crear un habito
