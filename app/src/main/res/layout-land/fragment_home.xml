@@ -8,37 +8,38 @@
     android:background="@color/background"
     tools:context=".ui.home.HomeFragment">
 
-    <!-- Calendario semanal -->
+    <!-- Calendario semanal - Lado izquierdo -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardWeekCalendar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/scrollViewHabits"
+        app:layout_constraintWidth_percent="0.35"
         app:strokeWidth="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="175dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="51dp"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/btnPrevWeek"
                     android:layout_width="42dp"
-                    android:layout_height="51dp"
+                    android:layout_height="42dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="Semana anterior"
                     android:src="@drawable/ic_arrow_left" />
@@ -46,7 +47,7 @@
                 <TextView
                     android:id="@+id/tvMonthYear"
                     android:layout_width="0dp"
-                    android:layout_height="51dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:textColor="@color/text_primary"
@@ -57,7 +58,7 @@
                 <ImageButton
                     android:id="@+id/btnNextWeek"
                     android:layout_width="42dp"
-                    android:layout_height="51dp"
+                    android:layout_height="42dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="Semana siguiente"
                     android:src="@drawable/ic_arrow_right" />
@@ -76,19 +77,20 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- Calendario completo (oculto inicialmente) -->
+    <!-- Calendario completo (oculto inicialmente) - Alineado con el área de hábitos -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardFullCalendar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:visibility="gone"
+        android:elevation="8dp"
         app:cardCornerRadius="16dp"
-        app:cardElevation="4dp"
-        app:layout_constraintTop_toBottomOf="@id/cardWeekCalendar"
-        app:layout_constraintStart_toStartOf="parent"
+        app:cardElevation="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cardWeekCalendar"
         app:layout_constraintEnd_toEndOf="parent">
 
         <CalendarView
@@ -98,29 +100,33 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- ScrollView con listas de hábitos -->
+    <!-- ScrollView con listas de hábitos - Lado derecho -->
     <ScrollView
         android:id="@+id/scrollViewHabits"
-        android:layout_width="374dp"
-        android:layout_height="472dp"
-        android:layout_marginTop="8dp"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:fillViewport="false"
+        app:layout_constraintStart_toEndOf="@id/cardWeekCalendar"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardWeekCalendar">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="24dp">
 
             <TextView
                 android:id="@+id/tvPendingTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
                 android:text="Mis Hábitos"
                 android:textColor="@color/text_primary"
                 android:textSize="20sp"
@@ -129,18 +135,19 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvHabits"
                 android:layout_width="match_parent"
-                android:layout_height="423dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:clipToPadding="false"
                 android:nestedScrollingEnabled="false"
-                android:paddingHorizontal="16dp" />
+                android:paddingHorizontal="8dp"
+                android:minHeight="200dp" />
 
             <TextView
                 android:id="@+id/tvCompletedTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:text="Completados"
                 android:textColor="@color/text_primary"
                 android:textSize="20sp"
@@ -154,8 +161,9 @@
                 android:layout_marginTop="8dp"
                 android:clipToPadding="false"
                 android:nestedScrollingEnabled="false"
-                android:paddingHorizontal="16dp"
-                android:paddingBottom="16dp"
+                android:paddingHorizontal="8dp"
+                android:paddingBottom="24dp"
+                android:minHeight="200dp"
                 android:visibility="gone" />
 
         </LinearLayout>
@@ -169,10 +177,10 @@
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/cardWeekCalendar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintStart_toEndOf="@id/cardWeekCalendar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
