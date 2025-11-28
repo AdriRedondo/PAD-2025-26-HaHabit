@@ -25,20 +25,20 @@ public interface HabitDao {
     @Query("DELETE FROM habitos")
     void deleteAllHabits();
 
-    @Query("SELECT * FROM habitos ORDER BY id ASC")
+    @Query("SELECT * FROM habitos WHERE isDeleted = 0 ORDER BY id ASC")
     LiveData<List<Habit>> getAllHabits();
 
     @Query("SELECT * FROM habitos WHERE id = :habitId")
     LiveData<Habit> getHabitById(int habitId);
 
-    @Query("SELECT * FROM habitos WHERE daysFrequency LIKE '%' || :dayOfWeek || '%' ORDER BY id ASC")
+    @Query("SELECT * FROM habitos WHERE daysFrequency LIKE '%' || :dayOfWeek || '%' AND isDeleted = 0 ORDER BY id ASC")
     LiveData<List<Habit>> getHabitsByDay(String dayOfWeek);
 
     @Query("SELECT h.* FROM habitos h " + "WHERE (" +
             "  (h.typeFrequency = 0 AND h.daysFrequency LIKE '%' || :dayOfWeek || '%') " +
             "  OR h.typeFrequency = 1" +
             ") " +
-           "AND NOT EXISTS (SELECT 1 FROM habit_completions hc " +
+           "AND h.isDeleted = 0 AND NOT EXISTS (SELECT 1 FROM habit_completions hc " +
            "WHERE hc.habitId = h.id AND hc.completionDate = :date) " +
            "ORDER BY h.id ASC")
     LiveData<List<Habit>> getPendingHabitsByDay(String dayOfWeek, long date);
@@ -49,7 +49,7 @@ public interface HabitDao {
             "  (h.typeFrequency = 0 AND h.daysFrequency LIKE '%' || :dayOfWeek || '%') " +
             "  OR h.typeFrequency = 1" +
             ") " +
-            "AND hc.completionDate = :date " +
+            "AND h.isDeleted = 0 AND hc.completionDate = :date " +
             "ORDER BY h.id ASC")
     LiveData<List<Habit>> getCompletedHabitsByDay(String dayOfWeek, long date);
 }

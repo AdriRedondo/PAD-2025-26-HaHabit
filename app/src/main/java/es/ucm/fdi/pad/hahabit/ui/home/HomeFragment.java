@@ -171,7 +171,7 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
 
             @Override
             public void onHabitDelete(Habit habit) {
-                viewModel.delete(habit);
+                viewModel.logicalDelete(habit);
             }
         });
 
@@ -205,7 +205,7 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
 
             @Override
             public void onHabitDelete(Habit habit) {
-                viewModel.delete(habit);
+                viewModel.logicalDelete(habit);
             }
         });
 

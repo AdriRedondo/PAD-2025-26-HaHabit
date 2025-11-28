@@ -157,8 +157,9 @@ public class HabitRepository {
         executorService.execute(() -> habitDao.update(habit));
     }
 
-    public void delete(Habit habit) {
-        executorService.execute(() -> habitDao.delete(habit));
+    public void logicalDelete(Habit habit) {
+        habit.setDeleted(true);
+        update(habit);
     }
 
 

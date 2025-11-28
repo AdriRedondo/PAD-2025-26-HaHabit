@@ -35,6 +35,9 @@ public class Habit {
     private boolean timerRunning; // Si está corriendo
     private Long timerTarget; // Duración objetivo en milisegundos (opcional)
 
+
+    public boolean isDeleted = false;
+
     // Constructor
     public Habit(String title, String area, String type, Double progress, boolean done,
                  int typeFrequency, String daysFrequency, Integer frequency
@@ -127,4 +130,12 @@ public class Habit {
 
     public Integer getTimerSeconds() { return timerSeconds; }
     public void setTimerSeconds(Integer timerSeconds) { this.timerSeconds = timerSeconds; }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
 }
