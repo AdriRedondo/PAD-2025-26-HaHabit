@@ -29,8 +29,10 @@ public class AddViewModel extends AndroidViewModel {
     private final MutableLiveData<Boolean> reminderEnabled;
     private final MutableLiveData<String> reminderTime;
 
+    private final MutableLiveData<Integer> timerHours;
+    private final MutableLiveData<Integer> timerMinutes;
+    private final MutableLiveData<Integer> timerSeconds;
     private final HabitRepository repository;
-
 
     public AddViewModel(Application application) {
 
@@ -48,6 +50,10 @@ public class AddViewModel extends AndroidViewModel {
         time = new MutableLiveData<>();
         reminderEnabled = new MutableLiveData<>(false);
         reminderTime = new MutableLiveData<>("");
+
+        timerHours = new MutableLiveData<>(0);
+        timerMinutes = new MutableLiveData<>(0);
+        timerSeconds = new MutableLiveData<>(0);
 
         repository = new HabitRepository(application);
     }
@@ -127,6 +133,27 @@ public class AddViewModel extends AndroidViewModel {
         return reminderTime;
     }
 
+    public void setTimerHours(int hours) {
+        timerHours.setValue(hours);
+    }
+    public LiveData<Integer> getTimerHours() {
+        return timerHours;
+    }
+
+    public void setTimerMinutes(int minutes) {
+        timerMinutes.setValue(minutes);
+    }
+    public LiveData<Integer> getTimerMinutes() {
+        return timerMinutes;
+    }
+
+    public void setTimerSeconds(int seconds) {
+        timerSeconds.setValue(seconds);
+    }
+    public LiveData<Integer> getTimerSeconds() {
+        return timerSeconds;
+    }
+
     public Habit buildHabit() {
 
         Integer freq = typeFrequency.getValue();
@@ -145,14 +172,18 @@ public class AddViewModel extends AndroidViewModel {
                 title.getValue(),
                 area.getValue(),
                 type.getValue(),
+                "normal",           // habitType - por defecto "normal"
                 0.0,                // progress
-                false,                      // done
+                false,              // done
                 freq,
-                dias,                       // daysFrequency
+                dias,               // daysFrequency
                 interval,
                 reminderEnabled.getValue() != null ? reminderEnabled.getValue() : false,
                 reminderTime.getValue(),
-                System.currentTimeMillis()
+                System.currentTimeMillis(),
+                timerHours.getValue(),
+                timerMinutes.getValue(),
+                timerSeconds.getValue()
         );
     }
 
@@ -166,6 +197,9 @@ public class AddViewModel extends AndroidViewModel {
         time.setValue(null);
         reminderEnabled.setValue(false);
         reminderTime.setValue("");
+        timerHours.setValue(0);
+        timerMinutes.setValue(0);
+        timerSeconds.setValue(0);
     }
 
 

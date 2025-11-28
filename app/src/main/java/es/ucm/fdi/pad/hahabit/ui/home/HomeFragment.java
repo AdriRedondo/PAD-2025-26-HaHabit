@@ -53,6 +53,12 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
         setupWeekCalendar();
         setupHabitsList();
         setupClickListeners();
+
+        // ============ MÉTODO DE PRUEBA ============
+        // Descomentar la siguiente línea para crear hábitos de prueba
+        // Solo ejecutar UNA VEZ, luego comentar de nuevo
+        //viewModel.createTestHabits();
+        // ==========================================
     }
 
     private void initViews(View view) {
@@ -150,6 +156,16 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
             }
 
             @Override
+            public void onTimerToggle(Habit habit) {
+                viewModel.toggleTimer(habit);
+            }
+
+            @Override
+            public void onTimerReset(Habit habit) {
+                viewModel.resetTimer(habit);
+            }
+
+            @Override
             public void onHabitDelete(Habit habit) {
                 viewModel.logicalDelete(habit);
             }
@@ -176,6 +192,16 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
             @Override
             public void onHabitDelete(Habit habit) {
                 viewModel.logicalDelete(habit);
+            }
+
+            @Override
+            public void onTimerToggle(Habit habit) {
+                // No hacer nada en la sección de completados
+            }
+
+            @Override
+            public void onTimerReset(Habit habit) {
+                // No hacer nada en la sección de completados
             }
         });
 

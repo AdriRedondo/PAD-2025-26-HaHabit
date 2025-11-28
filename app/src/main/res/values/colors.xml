@@ -22,6 +22,19 @@
     <color name="text_primary">#1E293B</color>
     <color name="text_secondary">#64748B</color>
 
+    <!-- Colores de cada habito -->
+    <color name="verde_cocinar">#78BC61</color>
+    <color name="verde_cocinar_habito">#E6F3E2</color>
+
+    <color name="rojo_deporte">#FF686B</color>
+    <color name="rojo_deporte_habito">#FFD6D6</color>
+
+    <color name="azul_estudio">#00A6FB</color>
+    <color name="azul_estudio_habito">#C2EBFF</color>
+
+    <color name="amarillo_otros">#F8BD4F</color>
+    <color name="amarillo_otros_habito">#FDF0D8</color>
+
     <!-- Otros -->
     <color name="progress_background">#E2E8F0</color>
     <color name="success">#22C55E</color>
@@ -29,10 +42,7 @@
     <color name="gris_oscuro">#333333</color>
     <color name="blanco_base">#FAFAFA</color>
     <color name="gris_muy_claro">#999999</color>
-    <color name="verde_claro">#78BC61</color>
-    <color name="rojo_claro">#FF686B</color>
-    <color name="azul_claro">#00A6FB</color>
-    <color name="amarillo_anaranjado">#F8BD4F</color>
+
     <color name="gris">#666666</color>
-    <color name="azul">#00A6FB</color>
+    <color name="azul_boton_seleccionado">#00A6FB</color>
 </resources>
