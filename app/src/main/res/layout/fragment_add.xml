@@ -62,7 +62,7 @@
             android:layout_height="70dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="8dp"
-            android:backgroundTint="@color/verde_claro"
+            android:backgroundTint="@color/verde_cocinar"
             android:fontFamily="sans-serif-medium"
             android:text="@string/cooking"
             android:textColor="@color/white"
@@ -85,7 +85,7 @@
             android:layout_height="70dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            android:backgroundTint="@color/rojo_claro"
+            android:backgroundTint="@color/rojo_deporte"
             android:text="@string/sports"
             android:textColor="@color/white"
             android:fontFamily="sans-serif-medium"
@@ -108,7 +108,7 @@
             android:layout_height="70dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="8dp"
-            android:backgroundTint="@color/azul_claro"
+            android:backgroundTint="@color/azul_estudio"
             android:text="@string/study"
             android:textColor="@color/white"
             android:fontFamily="sans-serif-medium"
@@ -131,7 +131,7 @@
             android:layout_height="70dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            android:backgroundTint="@color/amarillo_anaranjado"
+            android:backgroundTint="@color/amarillo_otros"
             android:text="@string/others"
             android:textColor="@color/white"
             android:fontFamily="sans-serif-medium"
@@ -312,7 +312,7 @@
                 android:text="@string/weekly"
                 android:fontFamily="sans-serif"
                 android:textColor="@color/gris_oscuro"
-                android:buttonTint="@color/azul"
+                android:buttonTint="@color/azul_boton_seleccionado"
                 android:checked="true" />
 
             <RadioButton
@@ -323,7 +323,7 @@
                 android:text="@string/every_other_day"
                 android:fontFamily="sans-serif"
                 android:textColor="@color/gris_oscuro"
-                android:buttonTint="@color/azul" />
+                android:buttonTint="@color/azul_boton_seleccionado" />
         </RadioGroup>
 
         <LinearLayout
@@ -522,7 +522,7 @@
             android:textSize="16sp"
             android:textColor="@color/gris_oscuro"
             android:fontFamily="sans-serif-medium"
-            android:buttonTint="@color/azul"
+            android:buttonTint="@color/azul_boton_seleccionado"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/frequencyBarrier" />
 
@@ -566,7 +566,7 @@
             android:text="@string/add_habbit"
             android:textColor="@color/white"
             android:textSize="16sp"
-            app:backgroundTint="@color/azul"
+            app:backgroundTint="@color/azul_boton_seleccionado"
             app:cornerRadius="28dp"
             app:elevation="4dp"
             app:layout_constraintBottom_toBottomOf="parent"

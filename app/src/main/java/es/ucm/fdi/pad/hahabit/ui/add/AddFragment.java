@@ -123,16 +123,16 @@ public class AddFragment extends Fragment {
         // Area
         binding.cookingButton.setOnClickListener(v ->
                 {addViewModel.setArea("Cocinar");
-                    marcarBotonArea(binding.cookingButton, ContextCompat.getColor(requireContext(), R.color.verde_claro));});
+                    marcarBotonArea(binding.cookingButton, ContextCompat.getColor(requireContext(), R.color.verde_cocinar));});
         binding.sportsButton.setOnClickListener(v ->
                 {addViewModel.setArea("Deporte");
-                    marcarBotonArea(binding.sportsButton, ContextCompat.getColor(requireContext(), R.color.rojo_claro));});
+                    marcarBotonArea(binding.sportsButton, ContextCompat.getColor(requireContext(), R.color.rojo_deporte));});
         binding.studyButton.setOnClickListener(v ->
                 {addViewModel.setArea("Estudio");
-                    marcarBotonArea(binding.studyButton, ContextCompat.getColor(requireContext(), R.color.azul_claro));});
+                    marcarBotonArea(binding.studyButton, ContextCompat.getColor(requireContext(), R.color.azul_estudio));});
         binding.othersButton.setOnClickListener(v ->
                 {addViewModel.setArea("Otros");
-                    marcarBotonArea(binding.othersButton, ContextCompat.getColor(requireContext(), R.color.amarillo_anaranjado));});
+                    marcarBotonArea(binding.othersButton, ContextCompat.getColor(requireContext(), R.color.amarillo_otros));});
 
         // Tipo
         binding.standarButton.setOnClickListener(v ->
@@ -235,7 +235,7 @@ public class AddFragment extends Fragment {
         binding.timerButton.setIconTint(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.gris_oscuro)));
 
 
-        seleccionado.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.azul)));
+        seleccionado.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.azul_boton_seleccionado)));
         seleccionado.setIconTint(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white)));
     }
 
@@ -262,7 +262,7 @@ public class AddFragment extends Fragment {
         // Cambia de color dependiendo de si está seleccionado
         if (seleccionado) {
             btn.setBackgroundTintList(ColorStateList.valueOf(
-                    ContextCompat.getColor(requireContext(), R.color.azul)
+                    ContextCompat.getColor(requireContext(), R.color.azul_boton_seleccionado)
             ));
         } else {
             btn.setBackgroundTintList(ColorStateList.valueOf(
