@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Colores de la aplicación -->
+    <color name="color_primary">#277DA1</color> <!-- Mantener mismo tono -->
+    <color name="color_primary_variant">#1B4F72</color>
+
+    <!-- Fondos (mortado/azul oscuro) -->
+    <color name="background">#1B1F33</color> <!-- Azul oscuro tirando a morado -->
+    <color name="surface">#252A44</color> <!-- Azul grisáceo más claro que background -->
+    <color name="nav_bar">#1B1F33</color> <!-- Igual que background -->
+
+    <!-- Textos -->
+    <color name="text_primary">#E0E0FF</color> <!-- Azul muy claro para contraste -->
+    <color name="text_secondary">#B0B0D0</color> <!-- Azul grisáceo para secundarios -->
+    <color name="text_on_color">#FFFFFF</color>
+
+    <!-- Colores de hábitos (mantener vivos para resaltar) -->
+    <color name="verde_cocinar">#90BE6D</color>
+    <color name="rojo_deporte">#F94144</color>
+    <color name="azul_estudio">#3098C5</color>
+    <color name="amarillo_otros">#F9C74F</color>
+
+    <!-- Barra de progreso -->
+    <color name="progress_background">#3A3F60</color> <!-- Azul grisáceo oscuro -->
+    <color name="progress_bar">#43AA8B</color>
+
+    <!-- Otros -->
+    <color name="black">#1B1F33</color> <!-- Evitar negro puro -->
+    <color name="white">#FFFFFFFF</color>
+</resources>

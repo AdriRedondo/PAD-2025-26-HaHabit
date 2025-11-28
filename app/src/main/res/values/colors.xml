@@ -1,48 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Colores por defecto de Android (requeridos por themes) -->
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
 
-    <!-- Colores de la app -->
-    <color name="primary">#6366F1</color>
-    <color name="primary_dark">#4F46E5</color>
-    <color name="primary_light">#A5B4FC</color>
+    <!-- Colores de la aplicación -->
+    <color name="color_primary">#277DA1</color>
+    <color name="color_primary_variant">#1B4F72</color>
 
     <!-- Fondos -->
-    <color name="background">#F8FAFC</color>
+    <color name="background">#FDECD8</color>
+    <color name="nav_bar">#FCDAB0</color>
     <color name="surface">#FFFFFF</color>
 
     <!-- Textos -->
-    <color name="text_primary">#1E293B</color>
-    <color name="text_secondary">#64748B</color>
+    <color name="text_primary">#233d4d</color>
+    <color name="text_secondary">#577590</color>
+    <color name="text_on_color">#FFFFFF</color>
 
     <!-- Colores de cada habito -->
-    <color name="verde_cocinar">#78BC61</color>
-    <color name="verde_cocinar_habito">#E6F3E2</color>
+    <color name="verde_cocinar">#90BE6D</color>
+    <color name="rojo_deporte">#F94144</color>
+    <color name="azul_estudio">#3098c5</color>
+    <color name="amarillo_otros">#F9C74F</color>
 
-    <color name="rojo_deporte">#FF686B</color>
-    <color name="rojo_deporte_habito">#FFD6D6</color>
-
-    <color name="azul_estudio">#00A6FB</color>
-    <color name="azul_estudio_habito">#C2EBFF</color>
-
-    <color name="amarillo_otros">#F8BD4F</color>
-    <color name="amarillo_otros_habito">#FDF0D8</color>
+    <!-- Barra de progreso -->
+    <color name="progress_background">#C0CDD8</color>
+    <color name="progress_bar">#43AA8B</color>
 
     <!-- Otros -->
-    <color name="progress_background">#E2E8F0</color>
-    <color name="success">#22C55E</color>
-    <color name="error">#EF4444</color>
-    <color name="gris_oscuro">#333333</color>
-    <color name="blanco_base">#FAFAFA</color>
-    <color name="gris_muy_claro">#999999</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
 
-    <color name="gris">#666666</color>
-    <color name="azul_boton_seleccionado">#00A6FB</color>
 </resources>
