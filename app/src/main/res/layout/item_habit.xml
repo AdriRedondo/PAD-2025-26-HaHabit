@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_menu_delete"
-            android:contentDescription="Eliminar hábito"
+            android:contentDescription="@string/eliminar_habito"
             app:tint="@color/text_secondary"
             android:padding="8dp" />
 

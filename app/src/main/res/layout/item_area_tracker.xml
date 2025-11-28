@@ -26,7 +26,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Deporte"
+                android:text="@string/sports"
                 android:textColor="@color/text_primary"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -35,7 +35,7 @@
                 android:id="@+id/text_streak"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2 días seguidos"
+                android:text="@string/_2_dias_seguidos"
                 android:textColor="@color/text_secondary"
                 android:textSize="14sp" />
 

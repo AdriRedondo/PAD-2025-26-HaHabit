@@ -35,4 +35,23 @@
     <string name="ej_3">Ex: 3</string>
     <string name="dias">days</string>
     <string name="enable_reminder">Enable reminder</string>
+    <string name="duracion_del_temporizador">timer duration</string>
+    <string name="horas">hours</string>
+    <string name="min">min</string>
+    <string name="seg">sec</string>
+    <string name="semana_anterior">Last week</string>
+    <string name="semana_siguiente">Next week</string>
+    <string name="mis_habitos">My habits</string>
+    <string name="completados">Finished</string>
+    <string name="no_tienes_habitos_para_hoy">You have no habits for today</string>
+    <string name="selecciona_otro_dia_o_anyade_nuevos_habitos">Select another day or add new habits</string>
+    <string name="dias_activos">Active days</string>
+    <string name="mejor_racha">Best streak</string>
+    <string name="_2_dias_seguidos">2 consecutive days</string>
+    <string name="eliminar_habito">Delete habit</string>
+    <string name="anyadir_item">+ Add item</string>
+    <string name="reiniciar">Reboot</string>
+    <string name="iniciar_pausar_temporizador">Start/Pause timer</string>
+    <string name="escribe_un_item">Write an item...</string>
+    <string name="eliminar_item">Delete item</string>
 </resources>

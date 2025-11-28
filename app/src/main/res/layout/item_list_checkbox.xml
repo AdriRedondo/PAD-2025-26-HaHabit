@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@android:color/transparent"
-        android:hint="Escribe un item..."
+        android:hint="@string/escribe_un_item"
         android:textSize="14sp"
         android:textColor="@color/text_primary"
         android:inputType="text"
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@android:drawable/ic_menu_delete"
-        android:contentDescription="Eliminar item"
+        android:contentDescription="@string/eliminar_item"
         app:tint="@color/text_secondary"
         android:padding="8dp" />
 

@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@android:drawable/ic_menu_delete"
-                android:contentDescription="Eliminar hábito"
+                android:contentDescription="@string/eliminar_habito"
                 app:tint="@color/text_secondary"
                 android:padding="8dp" />
         </LinearLayout>
@@ -110,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Reiniciar"
+                    android:text="@string/reiniciar"
                     android:textSize="12sp" />
 
             </LinearLayout>
@@ -130,7 +130,7 @@
                 app:iconPadding="0dp"
                 app:iconSize="32dp"
                 app:iconTint="@android:color/white"
-                android:contentDescription="Iniciar/Pausar temporizador" />
+                android:contentDescription="@string/iniciar_pausar_temporizador" />
 
         </LinearLayout>
 

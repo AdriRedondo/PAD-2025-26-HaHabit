@@ -24,7 +24,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="titleTextView,titleText,areaTextView,cookingButton,sportsButton,studyButton,othersButton,typeTextView,typeLayout,layoutTimer" />
+            app:constraint_referenced_ids="titleTextView,titleText,areaTextView,cookingButton,sportsButton,
+                                            studyButton,othersButton,typeTextView,typeLayout,layoutTimer" />
 
         <TextView
             android:id="@+id/titleTextView"
@@ -183,6 +184,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:baselineAligned="false"
             android:orientation="horizontal"
             app:layout_constraintEnd_toStartOf="@+id/verticalGuideline"
             app:layout_constraintStart_toStartOf="parent"
@@ -307,7 +309,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Duración del temporizador"
+                android:text="@string/duracion_del_temporizador"
                 android:textColor="@color/text_primary"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -322,10 +324,11 @@
                     android:id="@+id/editTextHours"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
+                    android:autofillHints=""
                     android:background="@drawable/edittext_background"
                     android:fontFamily="sans-serif"
                     android:gravity="center"
-                    android:hint="00"
+                    android:hint="@string/ejemplo_temporizador"
                     android:inputType="number"
                     android:maxLength="2"
                     android:textColor="@color/text_primary"
@@ -337,7 +340,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="16dp"
                     android:fontFamily="sans-serif"
-                    android:text="hours"
+                    android:text="@string/horas"
                     android:textColor="@color/text_primary"
                     android:textSize="16sp" />
 
@@ -345,10 +348,11 @@
                     android:id="@+id/editTextMinutes"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
+                    android:autofillHints=""
                     android:background="@drawable/edittext_background"
                     android:fontFamily="sans-serif"
                     android:gravity="center"
-                    android:hint="00"
+                    android:hint="@string/ejemplo_temporizador"
                     android:inputType="number"
                     android:maxLength="2"
                     android:textColor="@color/text_primary"
@@ -360,7 +364,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="16dp"
                     android:fontFamily="sans-serif"
-                    android:text="min"
+                    android:text="@string/min"
                     android:textColor="@color/text_primary"
                     android:textSize="16sp" />
 
@@ -368,10 +372,11 @@
                     android:id="@+id/editTextSeconds"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
+                    android:autofillHints=""
                     android:background="@drawable/edittext_background"
                     android:fontFamily="sans-serif"
                     android:gravity="center"
-                    android:hint="00"
+                    android:hint="@string/ejemplo_temporizador"
                     android:inputType="number"
                     android:maxLength="2"
                     android:textColor="@color/text_primary"
@@ -382,7 +387,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="sans-serif"
-                    android:text="seg"
+                    android:text="@string/seg"
                     android:textColor="@color/text_primary"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -597,6 +602,7 @@
                     android:id="@+id/editTextDias"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
+                    android:autofillHints=""
                     android:background="@drawable/edittext_background"
                     android:fontFamily="sans-serif"
                     android:hint="@string/ej_3"
@@ -665,7 +671,7 @@
                 android:layout_gravity="center"
                 android:timePickerMode="spinner" />
         </LinearLayout>
-        
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/addButton"
             android:layout_width="0dp"

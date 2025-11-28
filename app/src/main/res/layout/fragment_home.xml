@@ -40,7 +40,7 @@
                     android:layout_width="42dp"
                     android:layout_height="51dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="Semana anterior"
+                    android:contentDescription="@string/semana_anterior"
                     android:src="@drawable/ic_arrow_left" />
 
                 <TextView
@@ -59,7 +59,7 @@
                     android:layout_width="42dp"
                     android:layout_height="51dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="Semana siguiente"
+                    android:contentDescription="@string/semana_siguiente"
                     android:src="@drawable/ic_arrow_right" />
 
             </LinearLayout>
@@ -121,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="Mis Hábitos"
+                android:text="@string/mis_habitos"
                 android:textColor="@color/text_primary"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -141,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
-                android:text="Completados"
+                android:text="@string/completados"
                 android:textColor="@color/text_primary"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -177,14 +177,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="🎯"
+            android:text="@string/diana"
             android:textSize="48sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="No tienes hábitos para hoy"
+            android:text="@string/no_tienes_habitos_para_hoy"
             android:textColor="@color/text_secondary"
             android:textSize="16sp" />
 
@@ -192,7 +192,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Selecciona otro día o añade nuevos hábitos"
+            android:text="@string/selecciona_otro_dia_o_anyade_nuevos_habitos"
             android:textColor="@color/text_secondary"
             android:textSize="14sp" />
 

@@ -35,4 +35,26 @@
     <string name="ej_3">Ej: 3</string>
     <string name="dias">días</string>
     <string name="enable_reminder">Activar recordatorio</string>
+    <string name="duracion_del_temporizador">Duración del temporizador</string>
+    <string name="horas">horas</string>
+    <string name="ejemplo_temporizador" translatable="false">00</string>
+    <string name="min">min</string>
+    <string name="seg">seg</string>
+    <string name="semana_anterior">Semana anterior</string>
+    <string name="semana_siguiente">Semana siguiente</string>
+    <string name="mis_habitos">Mis Hábitos</string>
+    <string name="completados">Completados</string>
+    <string name="diana" translatable="false">🎯</string>
+    <string name="no_tienes_habitos_para_hoy">No tienes hábitos para hoy</string>
+    <string name="selecciona_otro_dia_o_anyade_nuevos_habitos">Selecciona otro día o añade nuevos hábitos</string>
+    <string name="ejemplo_dias_activo" translatable="false">0</string>
+    <string name="dias_activos">Días activos</string>
+    <string name="mejor_racha">Mejor racha</string>
+    <string name="_2_dias_seguidos">2 días seguidos</string>
+    <string name="eliminar_habito">Eliminar hábito</string>
+    <string name="anyadir_item">+ Añadir item</string>
+    <string name="reiniciar">Reiniciar</string>
+    <string name="iniciar_pausar_temporizador">Iniciar/Pausar temporizador</string>
+    <string name="escribe_un_item">Escribe un item...</string>
+    <string name="eliminar_item">Eliminar item</string>
 </resources>

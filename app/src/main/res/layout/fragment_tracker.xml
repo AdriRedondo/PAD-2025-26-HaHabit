@@ -42,7 +42,7 @@
                         android:id="@+id/text_active_days"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
+                        android:text="@string/ejemplo_dias_activo"
                         android:textColor="@color/text_primary"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -50,7 +50,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Días activos"
+                        android:text="@string/dias_activos"
                         android:textColor="@color/text_secondary"
                         android:textSize="11sp" />
 
@@ -67,7 +67,7 @@
                         android:id="@+id/text_best_streak"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
+                        android:text="@string/ejemplo_dias_activo"
                         android:textColor="@color/text_primary"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -75,7 +75,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Mejor racha"
+                        android:text="@string/mejor_racha"
                         android:textColor="@color/text_secondary"
                         android:textSize="11sp" />
 
@@ -92,7 +92,7 @@
                         android:id="@+id/text_total_completions"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
+                        android:text="@string/ejemplo_dias_activo"
                         android:textColor="@color/text_primary"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -100,7 +100,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Completados"
+                        android:text="@string/completados"
                         android:textColor="@color/text_secondary"
                         android:textSize="11sp" />
 

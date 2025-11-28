@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@android:drawable/ic_menu_delete"
-                android:contentDescription="Eliminar hábito"
+                android:contentDescription="@string/eliminar_habito"
                 app:tint="@color/text_secondary"
                 android:padding="8dp" />
         </LinearLayout>
@@ -93,7 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="+ Añadir item"
+            android:text="@string/anyadir_item"
             android:textSize="13sp" />
 
     </LinearLayout>
