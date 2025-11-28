@@ -145,10 +145,11 @@ public class AddViewModel extends AndroidViewModel {
                 title.getValue(),
                 area.getValue(),
                 type.getValue(),
+                "normal",           // habitType - por defecto "normal"
                 0.0,                // progress
-                false,                      // done
+                false,              // done
                 freq,
-                dias,                       // daysFrequency
+                dias,               // daysFrequency
                 interval,
                 reminderEnabled.getValue() != null ? reminderEnabled.getValue() : false,
                 reminderTime.getValue(),

@@ -115,6 +115,7 @@ public class HomeViewModel extends AndroidViewModel {
                 "Hacer ejercicio",
                 "Deporte",
                 "diario",
+                "normal",  // habitType
                 0.0,
                 false,
                 1,
@@ -130,6 +131,7 @@ public class HomeViewModel extends AndroidViewModel {
                 "Estudiar Android",
                 "Estudio",
                 "diario",
+                "normal",  // habitType
                 0.0,
                 false,
                 1,
@@ -145,6 +147,7 @@ public class HomeViewModel extends AndroidViewModel {
                 "Cocinar algo nuevo",
                 "Cocina",
                 "semanal",
+                "normal",  // habitType
                 0.0,
                 false,
                 2,
@@ -172,5 +175,93 @@ public class HomeViewModel extends AndroidViewModel {
         } else {
             repository.deleteCompletion(habit.getId(), dateStart);
         }
+    }
+
+    // MÉTODO DE PRUEBA - Crear hábitos de ejemplo de cada tipo
+    public void createTestHabits() {
+        // 1. Hábito normal (tipo checkbox)
+        Habit normalHabit = new Habit(
+                "Hacer ejercicio",
+                "Deporte",
+                "diario",
+                "normal",  // habitType
+                0.0,
+                false,
+                0,  // typeFrequency: 0 = semanal
+                "1,2,3,4,5",  // Lunes a viernes
+                5,
+                false,
+                "",
+                System.currentTimeMillis()
+        );
+        repository.insert(normalHabit);
+
+        // 2. Hábito tipo lista
+        Habit listHabit = new Habit(
+                "Lista de compras",
+                "Cocinar",
+                "diario",
+                "list",  // habitType
+                0.0,
+                false,
+                0,
+                "1,2,3,4,5,6,7",  // Todos los días
+                7,
+                false,
+                "",
+                System.currentTimeMillis()
+        );
+        // Agregar items de ejemplo en formato JSON
+        listHabit.setListItems("[{\"text\":\"Comprar leche\",\"completed\":false},{\"text\":\"Comprar pan\",\"completed\":false},{\"text\":\"Comprar huevos\",\"completed\":true}]");
+        repository.insert(listHabit);
+
+        // 3. Hábito tipo temporizador
+        Habit timerHabit = new Habit(
+                "Meditar",
+                "Salud",
+                "diario",
+                "timer",  // habitType
+                0.0,
+                false,
+                0,
+                "1,2,3,4,5,6,7",  // Todos los días
+                7,
+                false,
+                "",
+                System.currentTimeMillis()
+        );
+        // Configurar temporizador con 10 minutos de objetivo (600000 ms)
+        timerHabit.setTimerElapsed(0L);
+        timerHabit.setTimerRunning(false);
+        timerHabit.setTimerTarget(600000L);  // 10 minutos
+        repository.insert(timerHabit);
+
+        android.util.Log.d("HomeViewModel", "Hábitos de prueba creados: normal, lista y temporizador");
+    }
+
+    // Métodos para manejar el temporizador
+    public void toggleTimer(Habit habit) {
+        if (habit.isTimerRunning()) {
+            // Pausar el temporizador
+            long currentTime = System.currentTimeMillis();
+            long additionalTime = currentTime - habit.getTimerStartTime();
+            habit.setTimerElapsed(habit.getTimerElapsed() + additionalTime);
+            habit.setTimerRunning(false);
+            habit.setTimerStartTime(null);
+        } else {
+            // Iniciar/reanudar el temporizador
+            habit.setTimerRunning(true);
+            habit.setTimerStartTime(System.currentTimeMillis());
+        }
+        update(habit);
+        android.util.Log.d("HomeViewModel", "Timer toggled: " + habit.getTitle() + " - Running: " + habit.isTimerRunning());
+    }
+
+    public void resetTimer(Habit habit) {
+        habit.setTimerElapsed(0L);
+        habit.setTimerRunning(false);
+        habit.setTimerStartTime(null);
+        update(habit);
+        android.util.Log.d("HomeViewModel", "Timer reset: " + habit.getTitle());
     }
 }

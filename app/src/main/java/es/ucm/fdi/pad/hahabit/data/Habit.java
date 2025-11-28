@@ -12,6 +12,7 @@ public class Habit {
     private String title;
     private String area;
     private String type;
+    private String habitType; // "normal", "list", "timer"
     private Double progress;
     private boolean done;
     private int typeFrequency;
@@ -22,13 +23,23 @@ public class Habit {
 
     private Long startDate;
 
+    // Campos para hábito tipo lista (JSON string con los items)
+    private String listItems; // JSON: [{"text":"Item 1","completed":false},...]
+
+    // Campos para hábito tipo temporizador
+    private Long timerElapsed; // Tiempo transcurrido en milisegundos
+    private Long timerStartTime; // Timestamp cuando se inició
+    private boolean timerRunning; // Si está corriendo
+    private Long timerTarget; // Duración objetivo en milisegundos (opcional)
+
     // Constructor
-    public Habit(String title, String area, String type, Double progress, boolean done,
+    public Habit(String title, String area, String type, String habitType, Double progress, boolean done,
                  int typeFrequency, String daysFrequency, Integer frequency
                 , boolean reminderEnabled, String reminderTime, Long startDate) {
         this.title = title;
         this.area = area;
         this.type = type;
+        this.habitType = habitType != null ? habitType : "normal";
         this.progress = progress;
         this.done = done;
         this.typeFrequency = typeFrequency;
@@ -37,6 +48,13 @@ public class Habit {
         this.reminderEnabled = reminderEnabled;
         this.reminderTime = reminderTime;
         this.startDate = startDate;
+
+        // Inicializar campos específicos según el tipo
+        this.listItems = null;
+        this.timerElapsed = 0L;
+        this.timerStartTime = null;
+        this.timerRunning = false;
+        this.timerTarget = null;
     }
 
     // Getters y Setters
@@ -51,6 +69,9 @@ public class Habit {
 
     public String getType() { return type; }
     public void setType(String type) { this.type = type; }
+
+    public String getHabitType() { return habitType != null ? habitType : "normal"; }
+    public void setHabitType(String habitType) { this.habitType = habitType; }
 
     public Double getProgress() { return progress; }
     public void setProgress(Double progress) { this.progress = progress; }
@@ -75,4 +96,21 @@ public class Habit {
 
     public Long getStartDate() { return startDate; }
     public void setStartDate(Long startDate) { this.startDate = startDate; }
+
+    // Getters y Setters para campos de lista
+    public String getListItems() { return listItems; }
+    public void setListItems(String listItems) { this.listItems = listItems; }
+
+    // Getters y Setters para campos de temporizador
+    public Long getTimerElapsed() { return timerElapsed != null ? timerElapsed : 0L; }
+    public void setTimerElapsed(Long timerElapsed) { this.timerElapsed = timerElapsed; }
+
+    public Long getTimerStartTime() { return timerStartTime; }
+    public void setTimerStartTime(Long timerStartTime) { this.timerStartTime = timerStartTime; }
+
+    public boolean isTimerRunning() { return timerRunning; }
+    public void setTimerRunning(boolean timerRunning) { this.timerRunning = timerRunning; }
+
+    public Long getTimerTarget() { return timerTarget; }
+    public void setTimerTarget(Long timerTarget) { this.timerTarget = timerTarget; }
 }

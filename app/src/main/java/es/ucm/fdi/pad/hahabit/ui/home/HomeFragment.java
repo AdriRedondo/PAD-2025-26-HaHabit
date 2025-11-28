@@ -53,6 +53,12 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
         setupWeekCalendar();
         setupHabitsList();
         setupClickListeners();
+
+        // ============ MÉTODO DE PRUEBA ============
+        // Descomentar la siguiente línea para crear hábitos de prueba
+        // Solo ejecutar UNA VEZ, luego comentar de nuevo
+        //viewModel.createTestHabits();
+        // ==========================================
     }
 
     private void initViews(View view) {
@@ -148,6 +154,16 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
             public void onHabitChecked(Habit habit, boolean isChecked) {
                 viewModel.markHabitCompleted(habit, isChecked);
             }
+
+            @Override
+            public void onTimerToggle(Habit habit) {
+                viewModel.toggleTimer(habit);
+            }
+
+            @Override
+            public void onTimerReset(Habit habit) {
+                viewModel.resetTimer(habit);
+            }
         });
 
         rvHabits.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -166,6 +182,16 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
                 // Este listener nunca debería llamarse porque los checkboxes están deshabilitados
                 // pero por si acaso:
                 viewModel.markHabitCompleted(habit, isChecked);
+            }
+
+            @Override
+            public void onTimerToggle(Habit habit) {
+                // No hacer nada en la sección de completados
+            }
+
+            @Override
+            public void onTimerReset(Habit habit) {
+                // No hacer nada en la sección de completados
             }
         });
 
