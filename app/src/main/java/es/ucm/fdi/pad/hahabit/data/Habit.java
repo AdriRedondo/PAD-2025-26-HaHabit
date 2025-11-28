@@ -26,6 +26,10 @@ public class Habit {
     // Campos para hábito tipo lista (JSON string con los items)
     private String listItems; // JSON: [{"text":"Item 1","completed":false},...]
 
+    private Integer timerHours;    // Tiempo del temporizador en horas
+    private Integer timerMinutes;  // Tiempo del temporizador en minutos
+    private Integer timerSeconds;  // Tiempo del temporizador en segundos
+
     // Campos para hábito tipo temporizador
     private Long timerElapsed; // Tiempo transcurrido en milisegundos
     private Long timerStartTime; // Timestamp cuando se inició
@@ -35,7 +39,8 @@ public class Habit {
     // Constructor
     public Habit(String title, String area, String type, String habitType, Double progress, boolean done,
                  int typeFrequency, String daysFrequency, Integer frequency
-                , boolean reminderEnabled, String reminderTime, Long startDate) {
+                , boolean reminderEnabled, String reminderTime, Long startDate,
+                 Integer timerHours, Integer timerMinutes, Integer timerSeconds) {
         this.title = title;
         this.area = area;
         this.type = type;
@@ -55,6 +60,10 @@ public class Habit {
         this.timerStartTime = null;
         this.timerRunning = false;
         this.timerTarget = null;
+
+        this.timerHours = timerHours;
+        this.timerMinutes = timerMinutes;
+        this.timerSeconds = timerSeconds;
     }
 
     // Getters y Setters
@@ -113,4 +122,14 @@ public class Habit {
 
     public Long getTimerTarget() { return timerTarget; }
     public void setTimerTarget(Long timerTarget) { this.timerTarget = timerTarget; }
+
+    public Integer getTimerMinutes() { return timerMinutes; }
+    public void setTimerMinutes(Integer timerMinutes) { this.timerMinutes = timerMinutes; }
+
+    public Integer getTimerHours() { return timerHours; }
+
+    public void setTimerHours(Integer timerHours) { this.timerHours = timerHours; }
+
+    public Integer getTimerSeconds() { return timerSeconds; }
+    public void setTimerSeconds(Integer timerSeconds) { this.timerSeconds = timerSeconds; }
 }

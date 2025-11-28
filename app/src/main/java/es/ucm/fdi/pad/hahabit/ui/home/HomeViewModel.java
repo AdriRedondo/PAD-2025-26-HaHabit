@@ -123,7 +123,10 @@ public class HomeViewModel extends AndroidViewModel {
                 5,
                 false,  // reminderEnabled
                 "",      // reminderTime
-                System.currentTimeMillis()
+                System.currentTimeMillis(),
+                0,
+                0,
+                0
         );
         repository.insert(testHabit);
 
@@ -139,7 +142,10 @@ public class HomeViewModel extends AndroidViewModel {
                 7,
                 false,  // reminderEnabled
                 "",      // reminderTime
-                System.currentTimeMillis()
+                System.currentTimeMillis(),
+                0,
+                0,
+                0
         );
         repository.insert(testHabit2);
 
@@ -155,7 +161,10 @@ public class HomeViewModel extends AndroidViewModel {
                 2,
                 false,  // reminderEnabled
                 "",      // reminderTime
-                System.currentTimeMillis()
+                System.currentTimeMillis(),
+                0,
+                0,
+                0
         );
         repository.insert(testHabit3);
     }
@@ -192,7 +201,10 @@ public class HomeViewModel extends AndroidViewModel {
                 5,
                 false,
                 "",
-                System.currentTimeMillis()
+                System.currentTimeMillis(),
+                0,
+                0,
+                0
         );
         repository.insert(normalHabit);
 
@@ -209,7 +221,10 @@ public class HomeViewModel extends AndroidViewModel {
                 7,
                 false,
                 "",
-                System.currentTimeMillis()
+                System.currentTimeMillis(),
+                0,
+                0,
+                0
         );
         // Agregar items de ejemplo en formato JSON
         listHabit.setListItems("[{\"text\":\"Comprar leche\",\"completed\":false},{\"text\":\"Comprar pan\",\"completed\":false},{\"text\":\"Comprar huevos\",\"completed\":true}]");
@@ -228,7 +243,10 @@ public class HomeViewModel extends AndroidViewModel {
                 7,
                 false,
                 "",
-                System.currentTimeMillis()
+                System.currentTimeMillis(),
+                0,
+                0,
+                0
         );
         // Configurar temporizador con 10 minutos de objetivo (600000 ms)
         timerHabit.setTimerElapsed(0L);

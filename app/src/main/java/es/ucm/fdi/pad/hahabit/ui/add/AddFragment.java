@@ -99,6 +99,11 @@ public class AddFragment extends Fragment {
         binding.timerButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white)));
         binding.timerButton.setIconTint(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.gris_oscuro)));
 
+        //aqui reseteo las horas
+        binding.layoutTimer.setVisibility(View.GONE);
+        binding.editTextHours.setText("");
+        binding.editTextMinutes.setText("");
+        binding.editTextSeconds.setText("");
         // Frecuencia (por defecto semanal)
         binding.frequencyGroup.check(R.id.weeklyButton);
 
@@ -135,15 +140,28 @@ public class AddFragment extends Fragment {
                     marcarBotonArea(binding.othersButton, ContextCompat.getColor(requireContext(), R.color.amarillo_otros));});
 
         // Tipo
-        binding.standarButton.setOnClickListener(v ->
-                {addViewModel.setType("Estandar");
-                    marcarBotonTipo(binding.standarButton);});
-        binding.listButton.setOnClickListener(v ->
-                {addViewModel.setType("Lista");
-                    marcarBotonTipo(binding.listButton);});
-        binding.timerButton.setOnClickListener(v ->
-                {addViewModel.setType("Temporizador");
-                    marcarBotonTipo(binding.timerButton);});
+        binding.standarButton.setOnClickListener(v -> {
+            addViewModel.setType("Estandar");
+            marcarBotonTipo(binding.standarButton);
+            // Ocultar el layout del temporizador
+            binding.layoutTimer.setVisibility(View.GONE);
+        });
+
+        binding.listButton.setOnClickListener(v -> {
+            addViewModel.setType("Lista");
+            marcarBotonTipo(binding.listButton);
+            // Ocultar el layout del temporizador
+            binding.layoutTimer.setVisibility(View.GONE);
+        });
+
+        binding.timerButton.setOnClickListener(v -> {
+            addViewModel.setType("Temporizador");
+            marcarBotonTipo(binding.timerButton);
+            // Mostrar el layout del temporizador
+            binding.layoutTimer.setVisibility(View.VISIBLE);
+        });
+
+
 
         // Frecuncia semanal o intervalo
         binding.frequencyGroup.setOnCheckedChangeListener((group, checkedId) -> {
@@ -292,6 +310,43 @@ public class AddFragment extends Fragment {
         // ahora sí podemos pasarlo al ViewModel
         addViewModel.setIntervalDays(interval);
 
+        // Tiempo del temporizador
+        String hoursText = binding.editTextHours.getText().toString().trim();
+        String minutesText = binding.editTextMinutes.getText().toString().trim();
+        String secondsText = binding.editTextSeconds.getText().toString().trim();
+
+        int hours = 0;
+        int minutes = 0;
+        int seconds = 0;
+
+        if (!hoursText.isEmpty()) {
+            try {
+                hours = Integer.parseInt(hoursText);
+            } catch (NumberFormatException e) {
+                // Mantener en 0 si no es válido
+            }
+        }
+
+        if (!minutesText.isEmpty()) {
+            try {
+                minutes = Integer.parseInt(minutesText);
+            } catch (NumberFormatException e) {
+                // Mantener en 0 si no es válido
+            }
+        }
+
+        if (!secondsText.isEmpty()) {
+            try {
+                seconds = Integer.parseInt(secondsText);
+            } catch (NumberFormatException e) {
+                // Mantener en 0 si no es válido
+            }
+        }
+
+        addViewModel.setTimerHours(hours);
+        addViewModel.setTimerMinutes(minutes);
+        addViewModel.setTimerSeconds(seconds);
+
         // Hora del recordatorio
         if (binding.reminderCheckbox.isChecked()) {
             int hour = binding.timePicker.getHour();
@@ -321,6 +376,29 @@ public class AddFragment extends Fragment {
         if (type == null || type.isEmpty()) {
             Toast.makeText(requireContext(), "Por favor, seleccione un tipo", Toast.LENGTH_SHORT).show();
             return false;
+        }
+
+        // Si es tipo temporizador, validar que se haya configurado el tiempo
+        if (type.equals("Temporizador")) {
+            Integer hours = addViewModel.getTimerHours().getValue();
+            Integer minutes = addViewModel.getTimerMinutes().getValue();
+            Integer seconds = addViewModel.getTimerSeconds().getValue();
+
+            if ((hours == null || hours == 0) && (minutes == null || minutes == 0) && (seconds == null || seconds == 0)) {
+                Toast.makeText(requireContext(), "Por favor, configure el tiempo del temporizador", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            // Validar que los minutos y segundos no sean mayores a 59
+            if (minutes != null && minutes > 59) {
+                Toast.makeText(requireContext(), "Los minutos no pueden ser mayores a 59", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            if (seconds != null && seconds > 59) {
+                Toast.makeText(requireContext(), "Los segundos no pueden ser mayores a 59", Toast.LENGTH_SHORT).show();
+                return false;
+            }
         }
 
         // Frecuencia
