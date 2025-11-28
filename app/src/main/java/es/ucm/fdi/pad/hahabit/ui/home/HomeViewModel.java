@@ -114,8 +114,7 @@ public class HomeViewModel extends AndroidViewModel {
         Habit testHabit = new Habit(
                 "Hacer ejercicio",
                 "Deporte",
-                "diario",
-                "normal",  // habitType
+                "normal",  // type: "normal", "list", "timer"
                 0.0,
                 false,
                 1,
@@ -133,8 +132,7 @@ public class HomeViewModel extends AndroidViewModel {
         Habit testHabit2 = new Habit(
                 "Estudiar Android",
                 "Estudio",
-                "diario",
-                "normal",  // habitType
+                "normal",  // type
                 0.0,
                 false,
                 1,
@@ -152,8 +150,7 @@ public class HomeViewModel extends AndroidViewModel {
         Habit testHabit3 = new Habit(
                 "Cocinar algo nuevo",
                 "Cocina",
-                "semanal",
-                "normal",  // habitType
+                "normal",  // type
                 0.0,
                 false,
                 2,
@@ -192,8 +189,7 @@ public class HomeViewModel extends AndroidViewModel {
         Habit normalHabit = new Habit(
                 "Hacer ejercicio",
                 "Deporte",
-                "diario",
-                "normal",  // habitType
+                "normal",  // type: "normal", "list", "timer"
                 0.0,
                 false,
                 0,  // typeFrequency: 0 = semanal
@@ -212,8 +208,7 @@ public class HomeViewModel extends AndroidViewModel {
         Habit listHabit = new Habit(
                 "Lista de compras",
                 "Cocinar",
-                "diario",
-                "list",  // habitType
+                "list",  // type
                 0.0,
                 false,
                 0,
@@ -234,8 +229,7 @@ public class HomeViewModel extends AndroidViewModel {
         Habit timerHabit = new Habit(
                 "Meditar",
                 "Salud",
-                "diario",
-                "timer",  // habitType
+                "timer",  // type
                 0.0,
                 false,
                 0,

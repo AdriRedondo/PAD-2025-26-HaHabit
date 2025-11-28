@@ -171,8 +171,7 @@ public class AddViewModel extends AndroidViewModel {
         return new Habit(
                 title.getValue(),
                 area.getValue(),
-                type.getValue(),
-                "normal",           // habitType - por defecto "normal"
+                "normal",           // type - por defecto "normal" (puede ser "normal", "list", "timer")
                 0.0,                // progress
                 false,              // done
                 freq,
@@ -181,9 +180,9 @@ public class AddViewModel extends AndroidViewModel {
                 reminderEnabled.getValue() != null ? reminderEnabled.getValue() : false,
                 reminderTime.getValue(),
                 System.currentTimeMillis(),
-                timerHours.getValue(),
-                timerMinutes.getValue(),
-                timerSeconds.getValue()
+                timerHours.getValue() != null ? timerHours.getValue() : 0,
+                timerMinutes.getValue() != null ? timerMinutes.getValue() : 0,
+                timerSeconds.getValue() != null ? timerSeconds.getValue() : 0
         );
     }
 

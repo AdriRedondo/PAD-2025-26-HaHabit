@@ -65,10 +65,10 @@ public class HabitAdapter extends ListAdapter<Habit, RecyclerView.ViewHolder> {
             // Comparar también el estado del temporizador para que se actualice
             boolean sameBasic = oldItem.getTitle().equals(newItem.getTitle()) &&
                     oldItem.getArea().equals(newItem.getArea()) &&
-                    oldItem.getHabitType().equals(newItem.getHabitType());
+                    oldItem.getType().equals(newItem.getType());
 
             // Si es un temporizador, también comparar el estado
-            if ("timer".equals(oldItem.getHabitType())) {
+            if ("timer".equals(oldItem.getType())) {
                 return sameBasic &&
                        oldItem.isTimerRunning() == newItem.isTimerRunning() &&
                        oldItem.getTimerElapsed().equals(newItem.getTimerElapsed());
@@ -85,11 +85,11 @@ public class HabitAdapter extends ListAdapter<Habit, RecyclerView.ViewHolder> {
     @Override
     public int getItemViewType(int position) {
         Habit habit = getItem(position);
-        String habitType = habit.getHabitType();
+        String type = habit.getType();
 
-        if ("list".equals(habitType)) {
+        if ("list".equals(type)) {
             return VIEW_TYPE_LIST;
-        } else if ("timer".equals(habitType)) {
+        } else if ("timer".equals(type)) {
             return VIEW_TYPE_TIMER;
         } else {
             return VIEW_TYPE_NORMAL;

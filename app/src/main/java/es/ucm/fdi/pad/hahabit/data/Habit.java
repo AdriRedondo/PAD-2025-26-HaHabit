@@ -11,8 +11,7 @@ public class Habit {
 
     private String title;
     private String area;
-    private String type;
-    private String habitType; // "normal", "list", "timer"
+    private String type; // "normal", "list", "timer"
     private Double progress;
     private boolean done;
     private int typeFrequency;
@@ -37,14 +36,13 @@ public class Habit {
     private Long timerTarget; // Duración objetivo en milisegundos (opcional)
 
     // Constructor
-    public Habit(String title, String area, String type, String habitType, Double progress, boolean done,
+    public Habit(String title, String area, String type, Double progress, boolean done,
                  int typeFrequency, String daysFrequency, Integer frequency
                 , boolean reminderEnabled, String reminderTime, Long startDate,
                  Integer timerHours, Integer timerMinutes, Integer timerSeconds) {
         this.title = title;
         this.area = area;
-        this.type = type;
-        this.habitType = habitType != null ? habitType : "normal";
+        this.type = type != null ? type : "normal";
         this.progress = progress;
         this.done = done;
         this.typeFrequency = typeFrequency;
@@ -76,11 +74,8 @@ public class Habit {
     public String getArea() { return area; }
     public void setArea(String area) { this.area = area; }
 
-    public String getType() { return type; }
+    public String getType() { return type != null ? type : "normal"; }
     public void setType(String type) { this.type = type; }
-
-    public String getHabitType() { return habitType != null ? habitType : "normal"; }
-    public void setHabitType(String habitType) { this.habitType = habitType; }
 
     public Double getProgress() { return progress; }
     public void setProgress(Double progress) { this.progress = progress; }

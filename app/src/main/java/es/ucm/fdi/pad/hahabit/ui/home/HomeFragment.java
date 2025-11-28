@@ -152,7 +152,11 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
 
             @Override
             public void onHabitChecked(Habit habit, boolean isChecked) {
-                viewModel.markHabitCompleted(habit, isChecked);
+                if ("normal".equals(habit.getType())) {
+                    viewModel.markHabitCompleted(habit, isChecked);
+                } else {
+                    viewModel.update(habit); // Para list/timer updates
+                }
             }
 
             @Override
