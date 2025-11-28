@@ -164,6 +164,11 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
             public void onTimerReset(Habit habit) {
                 viewModel.resetTimer(habit);
             }
+
+            @Override
+            public void onHabitDelete(Habit habit) {
+                viewModel.delete(habit);
+            }
         });
 
         rvHabits.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -192,6 +197,11 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
             @Override
             public void onTimerReset(Habit habit) {
                 // No hacer nada en la sección de completados
+            }
+
+            @Override
+            public void onHabitDelete(Habit habit) {
+                viewModel.delete(habit);
             }
         });
 

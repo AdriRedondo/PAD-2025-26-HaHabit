@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -17,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.button.MaterialButton;
 import es.ucm.fdi.pad.hahabit.R;
 import es.ucm.fdi.pad.hahabit.data.Habit;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class HabitAdapter extends ListAdapter<Habit, RecyclerView.ViewHolder> {
@@ -34,6 +37,7 @@ public class HabitAdapter extends ListAdapter<Habit, RecyclerView.ViewHolder> {
         void onHabitChecked(Habit habit, boolean isChecked);
         void onTimerToggle(Habit habit);
         void onTimerReset(Habit habit);
+        void onHabitDelete(Habit habit);
     }
 
     public HabitAdapter() {
@@ -165,6 +169,13 @@ public class HabitAdapter extends ListAdapter<Habit, RecyclerView.ViewHolder> {
         } else {
             holder.checkBox.setOnCheckedChangeListener(null);
         }
+
+        // Botón de eliminar
+        holder.btnDelete.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onHabitDelete(habit);
+            }
+        });
     }
 
     private void bindListViewHolder(ListViewHolder holder, Habit habit) {
@@ -180,31 +191,123 @@ public class HabitAdapter extends ListAdapter<Habit, RecyclerView.ViewHolder> {
             }
         });
 
-        // Parsear y mostrar los items de la lista
-        String listItemsJson = habit.getListItems();
-        int totalItems = 0;
-        int completedItems = 0;
+        // Parsear los items de la lista desde JSON
+        List<ListItemAdapter.ListItem> items = parseListItems(habit.getListItems());
 
-        if (listItemsJson != null && !listItemsJson.isEmpty()) {
-            // Contar items completados (simple parsing)
-            String[] items = listItemsJson.split("\\},\\{");
-            totalItems = items.length;
-            for (String item : items) {
-                if (item.contains("\"completed\":true")) {
-                    completedItems++;
-                }
+        // Contar items completados
+        int totalItems = items.size();
+        int completedItems = 0;
+        for (ListItemAdapter.ListItem item : items) {
+            if (item.completed) {
+                completedItems++;
             }
         }
 
         holder.tvListProgress.setText(completedItems + "/" + totalItems);
 
+        // Configurar el adapter de la lista
+        if (holder.listItemAdapter == null) {
+            holder.listItemAdapter = new ListItemAdapter();
+            holder.rvListItems.setAdapter(holder.listItemAdapter);
+        }
+
+        holder.listItemAdapter.setItems(items);
+
+        // Listener para guardar cambios
+        holder.listItemAdapter.setOnItemChangeListener(updatedItems -> {
+            String json = serializeListItems(updatedItems);
+            habit.setListItems(json);
+
+            // Actualizar el progreso
+            int total = updatedItems.size();
+            int completed = 0;
+            for (ListItemAdapter.ListItem item : updatedItems) {
+                if (item.completed) {
+                    completed++;
+                }
+            }
+            holder.tvListProgress.setText(completed + "/" + total);
+
+            // Notificar al listener para guardar en BD
+            if (listener != null) {
+                listener.onHabitChecked(habit, false); // Usamos este callback para actualizar
+            }
+        });
+
         // Mostrar el RecyclerView y botón
         holder.rvListItems.setVisibility(View.VISIBLE);
         holder.btnAddListItem.setVisibility(View.VISIBLE);
+        holder.btnAddListItem.setEnabled(true);
+        holder.btnAddListItem.setText("+ Añadir item");
 
-        // Por ahora solo mostramos mensaje informativo
-        holder.btnAddListItem.setText("Ver/Editar items (próximamente)");
-        holder.btnAddListItem.setEnabled(false);
+        // Botón para añadir nuevos items
+        holder.btnAddListItem.setOnClickListener(v -> {
+            holder.listItemAdapter.addItem();
+        });
+
+        // Botón de eliminar
+        holder.btnDelete.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onHabitDelete(habit);
+            }
+        });
+    }
+
+    // Parsear JSON a lista de items
+    private List<ListItemAdapter.ListItem> parseListItems(String json) {
+        List<ListItemAdapter.ListItem> items = new ArrayList<>();
+        if (json == null || json.isEmpty()) {
+            return items;
+        }
+
+        try {
+            // Parsing manual simple (sin librerías externas)
+            json = json.trim();
+            if (json.startsWith("[")) json = json.substring(1);
+            if (json.endsWith("]")) json = json.substring(0, json.length() - 1);
+
+            String[] itemsArray = json.split("\\},\\{");
+            for (String itemStr : itemsArray) {
+                itemStr = itemStr.replace("{", "").replace("}", "");
+                String text = "";
+                boolean completed = false;
+
+                String[] parts = itemStr.split(",");
+                for (String part : parts) {
+                    if (part.contains("\"text\"")) {
+                        text = part.split(":")[1].replace("\"", "").trim();
+                    } else if (part.contains("\"completed\"")) {
+                        completed = part.split(":")[1].trim().equals("true");
+                    }
+                }
+
+                items.add(new ListItemAdapter.ListItem(text, completed));
+            }
+        } catch (Exception e) {
+            android.util.Log.e("HabitAdapter", "Error parsing list items: " + e.getMessage());
+        }
+
+        return items;
+    }
+
+    // Serializar lista de items a JSON
+    private String serializeListItems(List<ListItemAdapter.ListItem> items) {
+        if (items == null || items.isEmpty()) {
+            return "";
+        }
+
+        StringBuilder json = new StringBuilder("[");
+        for (int i = 0; i < items.size(); i++) {
+            ListItemAdapter.ListItem item = items.get(i);
+            json.append("{\"text\":\"").append(item.text.replace("\"", "\\\""))
+                .append("\",\"completed\":").append(item.completed).append("}");
+            if (i < items.size() - 1) {
+                json.append(",");
+            }
+        }
+        json.append("]");
+
+        return json.toString();
     }
 
     private void bindTimerViewHolder(TimerViewHolder holder, Habit habit) {
@@ -223,13 +326,20 @@ public class HabitAdapter extends ListAdapter<Habit, RecyclerView.ViewHolder> {
         // Detener actualizaciones previas
         holder.stopTimer();
 
-        // Función para actualizar el display
+        // Función para actualizar el display (CUENTA REGRESIVA)
         Runnable updateDisplay = new Runnable() {
             @Override
             public void run() {
                 if (habit.isTimerRunning() && habit.getTimerStartTime() != null) {
                     long currentElapsed = habit.getTimerElapsed() + (System.currentTimeMillis() - habit.getTimerStartTime());
-                    holder.tvTimerDisplay.setText(formatTime(currentElapsed));
+
+                    // Calcular tiempo restante (cuenta regresiva)
+                    long timeRemaining = 0;
+                    if (habit.getTimerTarget() != null && habit.getTimerTarget() > 0) {
+                        timeRemaining = Math.max(0, habit.getTimerTarget() - currentElapsed);
+                    }
+
+                    holder.tvTimerDisplay.setText(formatTimeMinutes(timeRemaining));
 
                     // Actualizar progreso
                     if (habit.getTimerTarget() != null && habit.getTimerTarget() > 0) {
@@ -237,8 +347,8 @@ public class HabitAdapter extends ListAdapter<Habit, RecyclerView.ViewHolder> {
                         holder.progressBarTimer.setProgress(Math.min(progress, 100));
                     }
 
-                    // Programar siguiente actualización
-                    holder.handler.postDelayed(this, 100);
+                    // Programar siguiente actualización cada 1 segundo
+                    holder.handler.postDelayed(this, 1000);
                 }
             }
         };
@@ -246,13 +356,25 @@ public class HabitAdapter extends ListAdapter<Habit, RecyclerView.ViewHolder> {
 
         // Mostrar tiempo inicial
         long elapsedMillis = habit.getTimerElapsed();
+        long timeRemaining = 0;
+
         if (habit.isTimerRunning() && habit.getTimerStartTime() != null) {
             long currentElapsed = elapsedMillis + (System.currentTimeMillis() - habit.getTimerStartTime());
-            holder.tvTimerDisplay.setText(formatTime(currentElapsed));
+
+            // Calcular tiempo restante
+            if (habit.getTimerTarget() != null && habit.getTimerTarget() > 0) {
+                timeRemaining = Math.max(0, habit.getTimerTarget() - currentElapsed);
+            }
+
+            holder.tvTimerDisplay.setText(formatTimeMinutes(timeRemaining));
             // Iniciar actualizaciones automáticas
             holder.handler.post(updateDisplay);
         } else {
-            holder.tvTimerDisplay.setText(formatTime(elapsedMillis));
+            // Cuando está pausado, mostrar el tiempo restante
+            if (habit.getTimerTarget() != null && habit.getTimerTarget() > 0) {
+                timeRemaining = Math.max(0, habit.getTimerTarget() - elapsedMillis);
+            }
+            holder.tvTimerDisplay.setText(formatTimeMinutes(timeRemaining));
         }
 
         // Cambiar icono según estado
@@ -282,6 +404,13 @@ public class HabitAdapter extends ListAdapter<Habit, RecyclerView.ViewHolder> {
                 listener.onTimerReset(habit);
             }
         });
+
+        // Botón de eliminar
+        holder.btnDelete.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onHabitDelete(habit);
+            }
+        });
     }
 
     // Formatear milisegundos a HH:MM:SS
@@ -291,6 +420,14 @@ public class HabitAdapter extends ListAdapter<Habit, RecyclerView.ViewHolder> {
         long minutes = (seconds % 3600) / 60;
         long secs = seconds % 60;
         return String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, secs);
+    }
+
+    // Formatear milisegundos a MM:SS (para cuenta regresiva)
+    private String formatTimeMinutes(long millis) {
+        long seconds = millis / 1000;
+        long minutes = seconds / 60;
+        long secs = seconds % 60;
+        return String.format(Locale.getDefault(), "%02d:%02d", minutes, secs);
     }
 
     private int getBackgroundForArea(String area) {
@@ -315,6 +452,7 @@ public class HabitAdapter extends ListAdapter<Habit, RecyclerView.ViewHolder> {
         CheckBox checkBox;
         ProgressBar progressBar;
         View cardContainer;
+        ImageButton btnDelete;
 
         NormalViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -323,6 +461,7 @@ public class HabitAdapter extends ListAdapter<Habit, RecyclerView.ViewHolder> {
             checkBox = itemView.findViewById(R.id.checkboxHabit);
             progressBar = itemView.findViewById(R.id.progressBarHabit);
             cardContainer = itemView.findViewById(R.id.habitCardContainer);
+            btnDelete = itemView.findViewById(R.id.btnDeleteHabit);
         }
     }
 
@@ -332,6 +471,8 @@ public class HabitAdapter extends ListAdapter<Habit, RecyclerView.ViewHolder> {
         RecyclerView rvListItems;
         Button btnAddListItem;
         View cardContainer;
+        ListItemAdapter listItemAdapter;
+        ImageButton btnDelete;
 
         ListViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -341,6 +482,7 @@ public class HabitAdapter extends ListAdapter<Habit, RecyclerView.ViewHolder> {
             rvListItems = itemView.findViewById(R.id.rvListItems);
             btnAddListItem = itemView.findViewById(R.id.btnAddListItem);
             cardContainer = itemView.findViewById(R.id.habitCardContainer);
+            btnDelete = itemView.findViewById(R.id.btnDeleteHabit);
 
             rvListItems.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
         }
@@ -353,6 +495,7 @@ public class HabitAdapter extends ListAdapter<Habit, RecyclerView.ViewHolder> {
         Button btnResetTimer;
         ProgressBar progressBarTimer;
         View cardContainer;
+        ImageButton btnDelete;
 
         Handler handler;
         Runnable updateRunnable;
@@ -366,6 +509,7 @@ public class HabitAdapter extends ListAdapter<Habit, RecyclerView.ViewHolder> {
             btnResetTimer = itemView.findViewById(R.id.btnResetTimer);
             progressBarTimer = itemView.findViewById(R.id.progressBarTimer);
             cardContainer = itemView.findViewById(R.id.habitCardContainer);
+            btnDelete = itemView.findViewById(R.id.btnDeleteHabit);
 
             handler = new Handler(Looper.getMainLooper());
         }
