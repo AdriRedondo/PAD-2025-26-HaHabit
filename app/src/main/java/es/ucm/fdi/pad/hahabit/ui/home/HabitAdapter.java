@@ -326,74 +326,67 @@ public class HabitAdapter extends ListAdapter<Habit, RecyclerView.ViewHolder> {
         // Detener actualizaciones previas
         holder.stopTimer();
 
+        // Capturar valores iniciales para evitar referencias obsoletas
+        final long initialElapsed = habit.getTimerElapsed() != null ? habit.getTimerElapsed() : 0L;
+        final long initialStartTime = habit.getTimerStartTime() != null ? habit.getTimerStartTime() : 0L;
+        final long timerTarget = habit.getTimerTarget() != null ? habit.getTimerTarget() : 0L;
+        final boolean isRunning = habit.isTimerRunning();
+
         // Función para actualizar el display (CUENTA REGRESIVA)
-        Runnable updateDisplay = new Runnable() {
-            @Override
-            public void run() {
-                if (habit.isTimerRunning() && habit.getTimerStartTime() != null) {
-                    long currentElapsed = habit.getTimerElapsed() + (System.currentTimeMillis() - habit.getTimerStartTime());
+        if (isRunning && initialStartTime > 0) {
+            Runnable updateDisplay = new Runnable() {
+                @Override
+                public void run() {
+                    // Calcular elapsed desde valores iniciales capturados
+                    long currentElapsed = initialElapsed + (System.currentTimeMillis() - initialStartTime);
 
                     // Calcular tiempo restante (cuenta regresiva)
                     long timeRemaining = 0;
-                    if (habit.getTimerTarget() != null && habit.getTimerTarget() > 0) {
-                        timeRemaining = Math.max(0, habit.getTimerTarget() - currentElapsed);
+                    if (timerTarget > 0) {
+                        timeRemaining = Math.max(0, timerTarget - currentElapsed);
                     }
 
                     holder.tvTimerDisplay.setText(formatTimeMinutes(timeRemaining));
 
-                    // Actualizar progreso
-                    if (habit.getTimerTarget() != null && habit.getTimerTarget() > 0) {
-                        int progress = (int) ((currentElapsed * 100) / habit.getTimerTarget());
-                        holder.progressBarTimer.setProgress(Math.min(progress, 100));
+                    // Continuar actualizando si hay tiempo restante
+                    if (timeRemaining > 0) {
+                        holder.handler.postDelayed(this, 1000);
                     }
-
-                    // Programar siguiente actualización cada 1 segundo
-                    holder.handler.postDelayed(this, 1000);
                 }
-            }
-        };
-        holder.updateRunnable = updateDisplay;
-
-        // Mostrar tiempo inicial
-        long elapsedMillis = habit.getTimerElapsed();
-        long timeRemaining = 0;
-
-        if (habit.isTimerRunning() && habit.getTimerStartTime() != null) {
-            long currentElapsed = elapsedMillis + (System.currentTimeMillis() - habit.getTimerStartTime());
-
-            // Calcular tiempo restante
-            if (habit.getTimerTarget() != null && habit.getTimerTarget() > 0) {
-                timeRemaining = Math.max(0, habit.getTimerTarget() - currentElapsed);
-            }
-
-            holder.tvTimerDisplay.setText(formatTimeMinutes(timeRemaining));
-            // Iniciar actualizaciones automáticas
+            };
+            holder.updateRunnable = updateDisplay;
             holder.handler.post(updateDisplay);
         } else {
             // Cuando está pausado, mostrar el tiempo restante
-            if (habit.getTimerTarget() != null && habit.getTimerTarget() > 0) {
-                timeRemaining = Math.max(0, habit.getTimerTarget() - elapsedMillis);
+            long timeRemaining = 0;
+            if (timerTarget > 0) {
+                timeRemaining = Math.max(0, timerTarget - initialElapsed);
             }
             holder.tvTimerDisplay.setText(formatTimeMinutes(timeRemaining));
         }
 
-        // Cambiar icono según estado
-        if (habit.isTimerRunning()) {
-            holder.btnPlayPause.setIconResource(android.R.drawable.ic_media_pause);
+        // Establecer icono inicial según estado
+        if (isRunning) {
+            holder.btnPlayPause.setImageResource(android.R.drawable.ic_media_pause);
+            holder.isShowingPlayIcon = false;
         } else {
-            holder.btnPlayPause.setIconResource(android.R.drawable.ic_media_play);
-        }
-
-        // Mostrar progreso si hay un objetivo
-        if (habit.getTimerTarget() != null && habit.getTimerTarget() > 0) {
-            holder.progressBarTimer.setVisibility(View.VISIBLE);
-            int progress = (int) ((elapsedMillis * 100) / habit.getTimerTarget());
-            holder.progressBarTimer.setProgress(Math.min(progress, 100));
-        } else {
-            holder.progressBarTimer.setVisibility(View.GONE);
+            holder.btnPlayPause.setImageResource(android.R.drawable.ic_media_play);
+            holder.isShowingPlayIcon = true;
         }
 
         holder.btnPlayPause.setOnClickListener(v -> {
+            // Alternar el icono inmediatamente
+            holder.isShowingPlayIcon = !holder.isShowingPlayIcon;
+            if (holder.isShowingPlayIcon) {
+                // Cambiar a play (está pausado)
+                holder.btnPlayPause.setImageResource(android.R.drawable.ic_media_play);
+                // Detener el runnable
+                holder.stopTimer();
+            } else {
+                // Cambiar a pause (está corriendo)
+                holder.btnPlayPause.setImageResource(android.R.drawable.ic_media_pause);
+            }
+
             if (listener != null) {
                 listener.onTimerToggle(habit);
             }
@@ -491,14 +484,14 @@ public class HabitAdapter extends ListAdapter<Habit, RecyclerView.ViewHolder> {
     // ViewHolder para hábitos tipo temporizador
     static class TimerViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitle, tvArea, tvTimerDisplay;
-        MaterialButton btnPlayPause;
+        ImageButton btnPlayPause;
         Button btnResetTimer;
-        ProgressBar progressBarTimer;
         View cardContainer;
         ImageButton btnDelete;
 
         Handler handler;
         Runnable updateRunnable;
+        boolean isShowingPlayIcon = true; // Rastrea qué icono se está mostrando
 
         TimerViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -507,7 +500,6 @@ public class HabitAdapter extends ListAdapter<Habit, RecyclerView.ViewHolder> {
             tvTimerDisplay = itemView.findViewById(R.id.tvTimerDisplay);
             btnPlayPause = itemView.findViewById(R.id.btnPlayPause);
             btnResetTimer = itemView.findViewById(R.id.btnResetTimer);
-            progressBarTimer = itemView.findViewById(R.id.progressBarTimer);
             cardContainer = itemView.findViewById(R.id.habitCardContainer);
             btnDelete = itemView.findViewById(R.id.btnDeleteHabit);
 

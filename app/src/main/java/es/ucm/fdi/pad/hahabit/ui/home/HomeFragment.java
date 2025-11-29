@@ -54,11 +54,6 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
         setupHabitsList();
         setupClickListeners();
 
-        // ============ MÉTODO DE PRUEBA ============
-        // Descomentar la siguiente línea para crear hábitos de prueba
-        // Solo ejecutar UNA VEZ, luego comentar de nuevo
-        //viewModel.createTestHabits();
-        // ==========================================
     }
 
     private void initViews(View view) {
@@ -183,7 +178,6 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
         completedAdapter.setOnHabitClickListener(new HabitAdapter.OnHabitClickListener() {
             @Override
             public void onHabitClick(Habit habit) {
-                // TODO: Abrir detalle del hábito
             }
 
             @Override
@@ -233,8 +227,6 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
     }
 
     private void updateWeekDisplay(Calendar date) {
-        // Log para depurar
-        android.util.Log.d("HomeFragment", "updateWeekDisplay: " + date.get(Calendar.DAY_OF_MONTH) + "/" + (date.get(Calendar.MONTH)+1) + "/" + date.get(Calendar.YEAR));
 
         SimpleDateFormat sdf = new SimpleDateFormat("MMMM yyyy", new Locale("es", "ES"));
         String monthYear = sdf.format(date.getTime());
