@@ -90,8 +90,8 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.DayViewH
 
         if (isSelected) {
             holder.itemView.setBackgroundResource(R.drawable.bg_day_selected);
-            holder.tvDayName.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.surface));
-            holder.tvDayNumber.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.surface));
+            holder.tvDayName.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.text_on_color));
+            holder.tvDayNumber.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.text_on_color));
         } else if (isToday) {
             holder.itemView.setBackgroundResource(R.drawable.bg_day_today);
             holder.tvDayName.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.color_primary));
