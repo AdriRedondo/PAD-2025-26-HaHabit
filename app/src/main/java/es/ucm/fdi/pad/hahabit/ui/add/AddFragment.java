@@ -254,7 +254,7 @@ public class AddFragment extends Fragment {
 
 
         seleccionado.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.color_primary)));
-        seleccionado.setIconTint(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.surface)));
+        seleccionado.setIconTint(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.text_on_color)));
     }
 
     // Metodo para oscurecer el color de los botones
