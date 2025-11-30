@@ -18,8 +18,6 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.DayViewH
     private Calendar selectedDate;
     private final OnDayClickListener listener;
 
-    private static final String[] DAY_NAMES = {"LUN", "MAR", "MIÉ", "JUE", "VIE", "SÁB", "DOM"};
-
     public interface OnDayClickListener {
         void onDayClick(Calendar date);
     }
@@ -78,8 +76,9 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.DayViewH
         Calendar day = weekDays.get(position);
         android.util.Log.d("WeekDayAdapter", "onBindViewHolder pos=" + position + " día=" + day.get(Calendar.DAY_OF_MONTH));
 
-        // Nombre del día (LUN, MAR, etc.) - position corresponde a lunes=0, martes=1, etc.
-        holder.tvDayName.setText(DAY_NAMES[position]);
+        // Nombre del día (LUN, MAR, etc. o MON, TUE, etc. según el idioma)
+        String dayName = day.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, java.util.Locale.getDefault());
+        holder.tvDayName.setText(dayName.toUpperCase());
 
         // Número del día del mes
         holder.tvDayNumber.setText(String.valueOf(day.get(Calendar.DAY_OF_MONTH)));

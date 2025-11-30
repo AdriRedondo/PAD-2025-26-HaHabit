@@ -228,7 +228,7 @@ public class HomeFragment extends Fragment implements WeekDayAdapter.OnDayClickL
 
     private void updateWeekDisplay(Calendar date) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("MMMM yyyy", new Locale("es", "ES"));
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
         String monthYear = sdf.format(date.getTime());
         tvMonthYear.setText(monthYear.substring(0, 1).toUpperCase() + monthYear.substring(1));
 
