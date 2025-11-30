@@ -33,7 +33,9 @@
     <string name="d">D</string>
     <string name="repetir_cada">Repetir cada:</string>
     <string name="ej_3">Ej: 3</string>
+    <string name="dia">día</string>
     <string name="dias">días</string>
+    <string name="seguido">seguido</string>
     <string name="enable_reminder">Activar recordatorio</string>
     <string name="duracion_del_temporizador">Duración del temporizador</string>
     <string name="horas">horas</string>
@@ -57,4 +59,7 @@
     <string name="iniciar_pausar_temporizador">Iniciar/Pausar temporizador</string>
     <string name="escribe_un_item">Escribe un item...</string>
     <string name="eliminar_item">Eliminar item</string>
+    <string name="felicitacion">¡Enhorabuena! Llevas</string>
+    <string name="dias_seguidos">días seguidos en el área</string>
+    <string name="sigue_asi">Sigue así</string>
 </resources>

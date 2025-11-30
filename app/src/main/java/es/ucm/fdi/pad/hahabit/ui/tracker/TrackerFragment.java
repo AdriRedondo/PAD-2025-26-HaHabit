@@ -20,10 +20,11 @@ import java.util.List;
 import es.ucm.fdi.pad.hahabit.data.HabitArea;
 import es.ucm.fdi.pad.hahabit.databinding.FragmentTrackerBinding;
 import es.ucm.fdi.pad.hahabit.network.ZenQuotesClient;
+import es.ucm.fdi.pad.hahabit.R;
 
 public class TrackerFragment extends Fragment {
     private static final String TAG = "TrackerFragment";
-    private static final int STREAK_THRESHOLD_FOR_QUOTE = 5;
+    private static final int STREAK_THRESHOLD_FOR_QUOTE = 1;
     private static final String PREFS_NAME = "TrackerPrefs";
     private static final String KEY_LAST_CELEBRATED_STREAK = "last_celebrated_streak_";
 
@@ -140,22 +141,18 @@ public class TrackerFragment extends Fragment {
 
 
 
-        StringBuilder message = new StringBuilder();
-        message.append("¡Enhorabuena! Llevas ")
-                .append(streak)
-                .append(" días seguidos en el área \"")
-                .append(areaName)
-                .append("\".\n\n")
-                .append(quote);
+        String felicitacion = getString(R.string.felicitacion);
+        String diasSeguidos = getString(R.string.dias_seguidos);
+
+        String message = felicitacion + " " + streak + " " + diasSeguidos + " \"" + areaName + "\".\n\n" +
+                quote;
 
         if (author != null && !author.isEmpty()) {
-            message.append("\n\n— ").append(author);
-        } else {
-            message.append(""); // nada, no mostramos autor
+            message += "\n\n— " + author;
         }
 
             new AlertDialog.Builder(requireContext())
-                .setTitle("Sigue así ✨")
+                .setTitle(R.string.sigue_asi)
                 .setMessage(message.toString())
                 .setPositiveButton(android.R.string.ok, null)
                 .show();

@@ -1,5 +1,6 @@
 package es.ucm.fdi.pad.hahabit.ui.tracker;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,12 +55,39 @@ public class AreaTrackerAdapter extends RecyclerView.Adapter<AreaTrackerAdapter.
             activityCalendar = itemView.findViewById(R.id.activity_calendar);
         }
 
-        public void bind(HabitArea area) {
-            textAreaName.setText(area.getAreaName());
+        public void areaNameHelper(String areaName){
+            switch(areaName){
+                case "Cocinar":
+                    textAreaName.setText(R.string.cooking);
+                    break;
+                case "Estudio":
+                    textAreaName.setText(R.string.study);
+                    break;
+                case "Deporte":
+                    textAreaName.setText(R.string.sports);
+                    break;
+                case "Otros":
+                    textAreaName.setText(R.string.others);
+                    break;
+                default:
+                    textAreaName.setText("Unknown");
+            }
+        }
 
-            String streakText = area.getCurrentStreak() + " día" +
-                    (area.getCurrentStreak() != 1 ? "s" : "") + " seguido" +
-                    (area.getCurrentStreak() != 1 ? "s" : "");
+        public void bind(HabitArea area) {
+            areaNameHelper(area.getAreaName());
+
+            int streak = area.getCurrentStreak();
+            String streakText;
+
+            Context context = itemView.getContext();
+
+            if (streak == 1) {
+                streakText = streak + " " + context.getString(R.string.dia) + " " + context.getString(R.string.seguido);
+            } else {
+                streakText = streak + " " + context.getString(R.string.dias) + " " + context.getString(R.string.seguido);
+            }
+
             textStreak.setText(streakText);
 
             activityCalendar.setActivities(area.getActivities());

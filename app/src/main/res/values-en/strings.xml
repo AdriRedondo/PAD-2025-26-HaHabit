@@ -33,7 +33,9 @@
     <string name="d">Sn</string>
     <string name="repetir_cada">Repeat every:</string>
     <string name="ej_3">Ex: 3</string>
+    <string name="dia">day</string>
     <string name="dias">days</string>
+    <string name="seguido">in a row</string>
     <string name="enable_reminder">Enable reminder</string>
     <string name="duracion_del_temporizador">timer duration</string>
     <string name="horas">hours</string>
@@ -54,4 +56,7 @@
     <string name="iniciar_pausar_temporizador">Start/Pause timer</string>
     <string name="escribe_un_item">Write an item...</string>
     <string name="eliminar_item">Delete item</string>
+    <string name="felicitacion">Congratulations! You have completed</string>
+    <string name="dias_seguidos">days in a row in the area</string>
+    <string name="sigue_asi">Keep it up</string>
 </resources>
