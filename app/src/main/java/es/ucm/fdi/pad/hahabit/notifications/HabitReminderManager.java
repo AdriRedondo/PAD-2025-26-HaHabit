@@ -59,8 +59,6 @@ public class HabitReminderManager {
             calendar.set(Calendar.SECOND, 0);
             calendar.set(Calendar.MILLISECOND, 0);
 
-            calendar.add(Calendar.MINUTE, -5);
-
             // Si la hora ya pasó hoy, programar para mañana
             if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
                 calendar.add(Calendar.DAY_OF_MONTH, 1);

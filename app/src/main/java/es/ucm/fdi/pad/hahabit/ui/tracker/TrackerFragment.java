@@ -24,7 +24,7 @@ import es.ucm.fdi.pad.hahabit.R;
 
 public class TrackerFragment extends Fragment {
     private static final String TAG = "TrackerFragment";
-    private static final int STREAK_THRESHOLD_FOR_QUOTE = 1;
+    private static final int STREAK_THRESHOLD_FOR_QUOTE = 5;
     private static final String PREFS_NAME = "TrackerPrefs";
     private static final String KEY_LAST_CELEBRATED_STREAK = "last_celebrated_streak_";
 
