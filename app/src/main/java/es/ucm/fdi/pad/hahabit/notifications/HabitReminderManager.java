@@ -59,8 +59,6 @@ public class HabitReminderManager {
             calendar.set(Calendar.SECOND, 0);
             calendar.set(Calendar.MILLISECOND, 0);
 
-            calendar.add(Calendar.MINUTE, -5);
-
             // Si la hora ya pasó hoy, programar para mañana
             if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
                 calendar.add(Calendar.DAY_OF_MONTH, 1);
@@ -81,7 +79,7 @@ public class HabitReminderManager {
             // Programar la alarma
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
-                alarmManager.setRepeating(
+                alarmManager.setInexactRepeating(
                         AlarmManager.RTC_WAKEUP,
                         calendar.getTimeInMillis(),
                         AlarmManager.INTERVAL_DAY,
@@ -90,21 +88,6 @@ public class HabitReminderManager {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    public void cancelReminder(int habitId) {
-        Intent intent = new Intent(context, ReminderBroadcastReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                context,
-                habitId,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
-        );
-
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        if (alarmManager != null) {
-            alarmManager.cancel(pendingIntent);
         }
     }
 }
